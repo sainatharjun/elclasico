@@ -1,0 +1,34 @@
+html, body, #root {
+    height:100%;
+}
+.abcRioButton.abcRioButtonLightBlue{
+    background: #D5D6E7;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+}
+.g-signin2{
+    align-self: center;
+}
+#Login{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    height: 100%;
+}
+.logo{
+    align-self: center;
+    margin-bottom: 10px;
+}
+.welcome{
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 25px;
+    line-height: 29px;
+    color: #000000;
+    align-self: center;
+    margin-bottom: 100px;
+}
+.elclasico{
+    color:#2D328F;
+}
