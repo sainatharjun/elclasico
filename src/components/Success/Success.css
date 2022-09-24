@@ -1,0 +1,20 @@
+.confirmIcon{
+    max-width: 150px;
+    display: block;
+    margin: 20px auto;
+}
+.success-header{
+    display: block;
+    margin: 5px auto;
+}
+.finalLinks{
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-decoration: none;
+}
+.finalLinks a p{
+    text-decoration: none;
+}

@@ -4,7 +4,7 @@ function TurfCard(props) {
     var name="Arjun";
 
     return (
-    <div className="TurfCard">
+    <div>
         <div className='turfCardContent'>
             <img className='turfCardLogo' src="images\el_classico_logo.png" alt="" />
             <div className='lhs'>

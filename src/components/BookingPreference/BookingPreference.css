@@ -1,0 +1,174 @@
+.stripScreen{
+    background: #f0f0f0;
+    width: 40%;
+    margin: 80px auto 0;
+    padding: 20px 40px 80px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    min-height: 100%;
+}
+@media screen and (max-width:768px) {
+    .stripScreen{
+        width: 100%;
+    }
+}
+.BPHeader{
+    margin-bottom: 30px;
+}
+.confirmBooking{
+    background: crimson;
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 23px;
+    color: #FFFFFF;
+    border: none;
+    padding: 15px 20px;
+    width: inherit;
+    align-self: center;
+    position: fixed;
+    bottom: 10px;
+}
+.cbl{
+    float: left;
+    margin: 0;
+}
+.cbl p{
+    text-align: left;
+    margin: 0;
+}
+.cbr{
+    float: right;
+    margin: 3% 0;    
+}
+#BookingPreferences{
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 23px;
+    color: #000000;
+}
+#bookingDate{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    margin-bottom: 40px;
+}
+.dates{
+    height: 100px;
+    width: 50px;
+    background-color: rgb(26, 0, 119);
+    color: #FFFFFF;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.5s;
+    border-radius: 8px;
+    flex-direction: column;
+
+}
+.dates:hover{
+    background-color:  rgb(59, 6, 252);
+}
+.dates.active{
+    background-color:  #FFFFFF;
+    color:rgb(26, 0, 119);
+
+}
+.fadedText{
+    color: #496581;
+    margin-bottom: 5px;
+}
+.sportButtonDiv{
+    margin-bottom: 30px;
+}
+.sportButton{
+    background: #FFFFFF;
+    border-radius: 9px;
+    border: #FFFFFF;
+    margin-right:30px ;
+    padding: 8px 18px;
+}
+.sportButton.active{
+    border: 2.5px solid #2D328F;
+}
+#timeSlots{
+    display: flex;
+    flex-flow: wrap;
+    flex-direction: row;
+    margin-bottom: 40px;
+}
+.slotBtn{
+    padding: 10px;
+    background-color: rgb(26, 0, 119);
+    color: #FFFFFF;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 3px 8px;
+    transition: 0.5s;
+    border-radius: 8px;
+    flex-direction: column;
+}
+.slotBtn:hover{
+    background-color:  rgb(59, 6, 252);
+}
+.slotBtn.picked{
+    background-color:  #FFFFFF;
+    color:rgb(26, 0, 119);
+}
+.col_right{
+    text-align: right;
+}
+.priceDiv h4{
+    margin-bottom: 30px;
+}
+.priceDiv .row{
+    padding: 0 20px;
+}
+.priceDiv{
+    margin-bottom: 40px;
+}
+.modalContainer{
+    position: fixed;
+    height: 120%;
+    width: 100%;
+    z-index: 100;
+    background-color: rgba(0, 0, 0, 0.2);
+    top: 0;
+    justify-content: center;
+    align-items: center;
+    display: none;
+    left: 0;
+}
+.modal{
+    height: auto;
+    width: 400px;
+    background-color: white;
+    display: block;
+    position: relative;
+    margin:0 auto;
+    padding: 30px 50px;
+    top: 25%;
+}
+.modal table{
+    margin-top: 20px;
+}
+.modal td{
+    padding: 10px 0;
+}
+.modal tr td:nth-child(2){
+    text-align: right;
+}
+.modal b{
+    text-align: center;
+    width: 100%;
+    display: block;
+}

@@ -1,0 +1,30 @@
+.adminCard {
+    background: #FAFAFA;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25);
+    border-radius: 7px; 
+    padding: 18px;
+    display: flex;
+    flex-direction: row;
+}
+.stripScreen{
+    background: white!important;
+}
+.adminDate{
+    position: absolute;
+    top: 40px;
+}
+.adminCalendar{
+    position: absolute;
+    top: 40px;
+    right: 40px;
+    cursor: pointer
+}
+@media screen and (max-width:768px) {
+    .rhs{
+        margin-left: 0;
+        align-items: flex-start;
+    }
+    .adminCard{
+        flex-direction: column;
+    }
+}
