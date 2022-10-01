@@ -74,7 +74,7 @@ function BookingPreference(props) {
     // this useEffect will run once
     // similar to componentDidMount
     useEffect(() => {
-      fetch("http://localhost:3010/slots?venueId="+venue_id+"&weekDayCode=*")
+      fetch("https://elclasico-test.herokuapp.com/slots?venueId="+venue_id+"&weekDayCode=*")
         .then(res => res.json())
         .then(
           (result) => {
@@ -133,7 +133,7 @@ function BookingPreference(props) {
         tempDate.setDate(date);
         tempDate.setMonth(month-1);
         tempDate.setFullYear(year);
-        await fetch("http://localhost:3010/bookings/",{
+        await fetch("https://elclasico-test.herokuapp.com/bookings/",{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

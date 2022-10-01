@@ -23,6 +23,7 @@
     "lit-html": "^2.2.7",
     "moment": "^2.29.4",
     "react": "^18.2.0",
+    "react-calendar": "^3.9.0",
     "react-dom": "^18.2.0",
     "react-google-login": "^5.2.2",
     "react-lottie-player": "^1.4.3",

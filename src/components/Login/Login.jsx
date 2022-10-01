@@ -8,7 +8,7 @@ function Login() {
      var userObj;
      let register=async()=>{
         let phone=$('#phone').val();
-        await fetch('http://localhost:3010/auth/register',{
+        await fetch('https://elclasico-test.herokuapp.com/auth/register',{
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -31,7 +31,7 @@ function Login() {
     }
     let handleResponse=async function(res){
         userObj=jwt_decode(res.credential);
-        await fetch('http://localhost:3010/auth/login',{
+        await fetch('https://elclasico-test.herokuapp.com/auth/login',{
             headers: {
                 'Content-Type': 'application/json'
             },
