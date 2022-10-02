@@ -12,15 +12,33 @@ import AllBookings from './components/AllBookings/AllBookings';
 
 /* eslint-disable */
 function App() {
+  const getCookie=function (cname) {
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for(let i = 0; i <ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
   const logout = () => {
     sessionStorage.removeItem('user');
+    document.cookie='user=;expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
     window.location.href = "/";
   }
-  if (sessionStorage['user']) {
-    var user = JSON.parse(sessionStorage['user'])
+  let user=getCookie('user');
+  if (user) {
+    sessionStorage['user']=user;
+    user = JSON.parse(user)
   }
   else {
-    var user = {
+    user = {
       email: ''
     }
   }

@@ -30,6 +30,7 @@ function Login() {
         $('.modalContainer').hide();
     }
     let handleResponse=async function(res){
+        $('body').html(`<lottie-player src="images/Loader.json" background="transparent" speed="1" style={{ width: '300px', height: '100%' }} loop autoplay></lottie-player>`)
         userObj=jwt_decode(res.credential);
         await fetch('https://elclasico-test.herokuapp.com/auth/login',{
             headers: {
@@ -45,6 +46,7 @@ function Login() {
             }
             else{
                 sessionStorage['user']=JSON.stringify(res.data);
+                document.cookie='user='+JSON.stringify(res.data)
                 window.location.reload();
             }
         })
