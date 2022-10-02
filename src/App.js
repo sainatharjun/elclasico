@@ -31,7 +31,7 @@ function App() {
           <img className='navLogo' src={window.location.href!="http://localhost:3000/admin/allBookings"?"images/el_classico_logo.png":"../images/el_classico_logo.png"} />
         </a>
         <div className='linkDiv'>
-          {user.email == 'sa7034@srmist.edu.in' ?
+          {user.email == 'elclasicoturf@gmail.com' ?
             <a href="/admin/allBookings">
               <span>All Bookings</span>
             </a>
@@ -55,7 +55,7 @@ function App() {
           </Route>
 
           <Route path="/admin">
-            <Route path="allBookings" element={user.email == 'sa7034@srmist.edu.in' ? <AllBookings /> : <Navigate to="/" />} />
+            <Route path="allBookings" element={user.email == 'elclasiocturf@gmail.com' ? <AllBookings /> : <Navigate to="/" />} />
           </Route>
 
         </Routes>
