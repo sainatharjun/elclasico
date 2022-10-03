@@ -61,10 +61,8 @@
     margin-bottom: 40px;
 }
 .dates{
-    height: 100px;
-    width: 50px;
-    background-color: rgb(26, 0, 119);
-    color: #FFFFFF;
+    background-color: #f2f3f5;
+    color:  rgb(26, 0, 119);
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -72,15 +70,23 @@
     transition: 0.5s;
     border-radius: 8px;
     flex-direction: column;
+    font-size: medium;
+    padding: 10px;
+    margin-top: 10px;
 
+}
+
+.dates p{
+    font-size: medium;
+    margin-bottom: 0px;
 }
 .dates:hover{
     background-color:  rgb(59, 6, 252);
 }
 .dates.active{
-    background-color:  #FFFFFF;
-    color:rgb(26, 0, 119);
-
+    background-color: rgb(26, 0, 119);
+    color:  #FFFFFF;
+    font-weight: 600;
 }
 .fadedText{
     color: #496581;
@@ -88,6 +94,7 @@
 }
 .sportButtonDiv{
     margin-bottom: 30px;
+    margin-top: 10px;
 }
 .sportButton{
     background: #FFFFFF;
@@ -104,11 +111,12 @@
     flex-flow: wrap;
     flex-direction: row;
     margin-bottom: 40px;
+    margin-top:10px;
 }
 .slotBtn{
     padding: 10px;
-    background-color: rgb(26, 0, 119);
-    color: #FFFFFF;
+    background-color: #f2f3f5;
+    color: rgb(26, 0, 119);
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -122,8 +130,8 @@
     background-color:  rgb(59, 6, 252);
 }
 .slotBtn.picked{
-    background-color:  #FFFFFF;
-    color:rgb(26, 0, 119);
+    background-color:  rgb(26, 0, 119);
+    color:#FFFFFF;
 }
 .col_right{
     text-align: right;
