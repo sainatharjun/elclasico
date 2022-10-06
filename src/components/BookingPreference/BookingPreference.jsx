@@ -126,7 +126,17 @@ function BookingPreference(props) {
         setDates(dates);
     }, [])
   
-
+    const tConvert =(time)=> {
+        // Check correct time format and split into components
+        time = time.toString ().match (/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [time];
+      
+        if (time.length > 1) { // If time format correct
+          time = time.slice (1);  // Remove full string match value
+          time[5] = +time[0] < 12 ? 'AM' : 'PM'; // Set AM/PM
+          time[0] = +time[0] % 12 || 12; // Adjust hours
+        }
+        return time.join (''); // return adjusted time or original string
+      }
     const confirmBooking=async function (){
         let user=JSON.parse(sessionStorage['user']);
         let tempDate=today;
@@ -210,7 +220,7 @@ function BookingPreference(props) {
         <div id="timeSlots">
             {
                 slots[count].slots.map(s=>(
-                    <div className='slotBtn' onClick={(event)=>handleTimeslot(event)} data-value={s.time} data-price={s.cost}>{s.time} - {parseInt(s.time)+1<10?'0':''}{parseInt(s.time)+1}:00</div>
+                    <div className='slotBtn' onClick={(event)=>handleTimeslot(event)} data-value={s.time} data-price={s.cost}>{tConvert(s.time)} - {tConvert(((parseInt(s.time)+1<10?'0':'')+(parseInt(s.time)+1)+":00")=="24:00"?"00:00":((parseInt(s.time)+1<10?'0':'')+(parseInt(s.time)+1)+":00"))}</div>
                 ))
             }
         </div>

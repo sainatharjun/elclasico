@@ -10,6 +10,17 @@ function Success(props) {
     const date=bookingData.date;
     const month=bookingData.month;
     const slot=bookingData.slot;
+    const tConvert =(time)=> {
+        // Check correct time format and split into components
+        time = time.toString ().match (/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [time];
+      
+        if (time.length > 1) { // If time format correct
+          time = time.slice (1);  // Remove full string match value
+          time[5] = +time[0] < 12 ? 'AM' : 'PM'; // Set AM/PM
+          time[0] = +time[0] % 12 || 12; // Adjust hours
+        }
+        return time.join (''); // return adjusted time or original string
+      }
     return  (
         <div className='stripScreen'>
             <img src="images/confirm-icon.svg" className='confirmIcon' alt="" />
@@ -39,7 +50,7 @@ function Success(props) {
                             Slot
                         </td>
                         <td>
-                            {slot} - {parseInt(slot)<10?'0':''}{parseInt(slot)+1}:00
+                            {tConvert(slot)} - {tConvert(((parseInt(slot)+1<10?'0':'')+(parseInt(slot)+1)+":00")=="24:00"?"00:00":((parseInt(slot)+1<10?'0':'')+(parseInt(slot)+1)+":00"))}
                         </td>
                     </tr>
                 </table>
