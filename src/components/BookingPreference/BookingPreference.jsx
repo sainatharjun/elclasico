@@ -1,39 +1,52 @@
-import './BookingPreference.css';
-import 'date-carousel/date-carousel.js'
-import { useState } from 'react';
-import $ from 'jquery';
+import "./BookingPreference.css";
+import "date-carousel/date-carousel.js";
+import { useState } from "react";
+import $ from "jquery";
 import { Link } from "react-router-dom";
-import { useLocation } from 'react-router-dom'
-import Modal from 'react-modal';
-import { useEffect } from 'react';
-import moment from 'moment';
+import { useLocation } from "react-router-dom";
+import Modal from "react-modal";
+import { useEffect } from "react";
+import moment from "moment";
 
 function BookingPreference(props) {
-    const location=useLocation();
-    const locality=location.state.locality
-    const venue_id=location.state.venue_id;
-    const discount=location.state.discount;
-    const today=new Date();
-    const [dates,setDates]=useState([])
-    const [date,setDate]=useState(today.getDate())
-    const [month,setMonth]=useState(today.getMonth()+1)
-    const [day,setDay]=useState(today.getDay()+1)
-    const [count,setCount]=useState(0)
-    const [timeSlot,setTimeSlot]=useState([])
-    const [price,setPrice]=useState(0)
-    const [payable,setPayable]=useState(0)
-    const year=today.getFullYear();
-    const momentToday=moment(today);
+  const location = useLocation();
+  const locality = location.state.locality;
+  const venue_id = location.state.venue_id;
+  const discount = location.state.discount;
+  const today = new Date();
+  const [dates, setDates] = useState([]);
+  const [date, setDate] = useState(today.getDate());
+  const [month, setMonth] = useState(today.getMonth() + 1);
+  const [day, setDay] = useState(today.getDay() + 1);
+  const [count, setCount] = useState(0);
+  const [timeSlot, setTimeSlot] = useState([]);
+  const [price, setPrice] = useState(0);
+  const [payable, setPayable] = useState(0);
+  const year = today.getFullYear();
+  const momentToday = moment(today);
 
-    const mlist = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
-    const dateHandler=function(e){
-        $('.dates').removeClass('active')
-        $(e.target.closest('.dates')).addClass('active')
-        setDate(e.target.closest('.dates').dataset.date)
-        setMonth(e.target.closest('.dates').dataset.month)
-        setDay(e.target.closest('.dates').dataset.day)
-        setCount(e.target.closest('.dates').dataset.count)
-    }
+  const mlist = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+  const dateHandler = function (e) {
+    $(".dates").removeClass("active");
+    $(e.target.closest(".dates")).addClass("active");
+    setDate(e.target.closest(".dates").dataset.date);
+    setMonth(e.target.closest(".dates").dataset.month);
+    setDay(e.target.closest(".dates").dataset.day);
+    setCount(e.target.closest(".dates").dataset.count);
+  };
 
     const sportStateFun=(sportState)=>{
         if(sport=='cricket')
@@ -192,31 +205,50 @@ function BookingPreference(props) {
     
     <div id="BookingPreference" className='stripScreen'>
         <Link to="/">
-            <img src="images/left-arrow.svg" style={{height:'20px',marginBottom:'20px'}} alt="" srcset="" />
+          <img
+            src="images/left-arrow.svg"
+            style={{ height: "20px", marginBottom: "20px" }}
+            alt=""
+            srcset=""
+          />
         </Link>
-        <h4 className='BPHeader'>Elclasico, {locality}</h4>
-        <p className='fadedText'>Choose a Sport</p>
-        <div className='sportButtonDiv'>
-            <button onClick={sportStateFun}  className='sportButton active SBfootball'>
-                <img src="images/football.png" alt="football" />
-                <span style={{marginLeft:10}}>Football</span>
-            </button>
-            <button onClick={sportStateFun} className='sportButton SBcricket'>
-                <img src="images/cricket.png" alt="cricket" />
-                <span style={{marginLeft:10}}>Box Cricket</span>
-            </button>
+        <h4 className="BPHeader">Elclasico, {locality}</h4>
+        <h5 className="fadedText">Select Sport</h5>
+        <div className="sportButtonDiv">
+          <button
+            onClick={sportStateFun}
+            className="sportButton active SBfootball"
+          >
+            <img src="images/football.png" alt="football" />
+            <span style={{ marginLeft: 10 }}>Football</span>
+          </button>
+          <button onClick={sportStateFun} className="sportButton SBcricket">
+            <img src="images/cricket.png" alt="cricket" />
+            <span style={{ marginLeft: 10 }}>Box Cricket</span>
+          </button>
         </div>
-        <p className='fadedText'>Choose a Date</p>
-        <div className='calendar'>
-            <div id='bookingDate'>
-            {   
-                dates.map((d,i)=>(
-                    <div onClick={(event)=>{dateHandler(event)}} id={d.day} data-date={d.date} data-day={d.day} data-month={d.month} data-count={i} className='dates'>{d.date}<h5>{mlist[d.month-1]}</h5></div>
-                ))
-            }
-            </div>
+        <h5 className="fadedText">Select Date</h5>
+        <div className="calendar">
+          <div id="bookingDate">
+            {dates.map((d, i) => (
+              <div
+                onClick={(event) => {
+                  dateHandler(event);
+                }}
+                id={d.day}
+                data-date={d.date}
+                data-day={d.day}
+                data-month={d.month}
+                data-count={i}
+                className="dates"
+              >
+                {d.date}
+                <p>{mlist[d.month - 1]}</p>
+              </div>
+            ))}
+          </div>
         </div>
-        <p className='fadedText'>Choose a Time Slot</p>
+        <h5 className="fadedText">Select Time Slot</h5>
         <div id="timeSlots">
             {
                 slots[count].slots.map(s=>(
@@ -264,62 +296,98 @@ function BookingPreference(props) {
                 </div>
             </div>
         </div>
-        <button style={{backgroundColor:timeSlot!=''?'green':'crimson',display:timeSlot!=''?'block':'none',cursor:timeSlot!=''?'pointer':'default'}} onClick={()=>{handleOpenModal()}} className='confirmBooking'>
-            <p className='cbl'>
-                Selected Slot
-                <p>{timeSlot} - {timeSlot!=''?parseInt(timeSlot)+1+':00':''}</p>
+        <button
+          style={{
+            backgroundColor: timeSlot != "" ? "green" : "crimson",
+            display: timeSlot != "" ? "block" : "none",
+            cursor: timeSlot != "" ? "pointer" : "default",
+          }}
+          onClick={() => {
+            handleOpenModal();
+          }}
+          className="confirmBooking"
+        >
+          <p className="cbl">
+            Selected Slot
+            <p>
+              {timeSlot} -{" "}
+              {timeSlot != "" ? parseInt(timeSlot) + 1 + ":00" : ""}
             </p>
-            <h5 className='cbr'>{timeSlot!=''?'Confirm Booking':'Select a Time Slot'}</h5>
+          </p>
+          <h5 className="cbr">
+            {timeSlot != "" ? "Confirm Booking" : "Select a Time Slot"}
+          </h5>
         </button>
-        <div className='modalContainer'>
-            <div className='modal'>
-                <b>Are you sure you wan't to book this slot?</b>
-                <br />
-                Slot Details
-                <br />
-                <table style={{width:'100%'}}>
-                    <tr>
-                        <td>
-                            Venue
-                        </td>
-                        <td>
-                            {locality}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Date
-                        </td>
-                        <td>
-                            {date} {mlist[month-1]}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Slot
-                        </td>
-                        <td>
-                        {timeSlot} - {parseInt(timeSlot)+1}:00
-                        </td>
-                    </tr>
-                </table>
-                <div style={{float:'right',marginTop:'15px'}}>
-                <button className='btn btn-danger' onClick={()=>handleCloseModal()}>Cancel</button>
-                &nbsp;
-                {/* <Link to="/success" state={{'locality':locality,'date':date, 'month':mlist[month-1],'slot':timeSlot}}> */}
-                    <button onClick={()=>{confirmBooking()}} className='btn btn-primary'>Yes, Confirm</button>
-                {/* </Link> */}
-                <Link style={{display:'none!important'}} id="successLink" to="/success" state={{'locality':locality,'date':date, 'month':mlist[month-1],'slot':timeSlot}}>
-                </Link>
-                <Link style={{display:'none!important'}} id="failureLink" to="/failure" state={{'locality':locality,'date':date, 'month':mlist[month-1],'slot':timeSlot}}>
-                </Link>
-                </div>
+        <div className="modalContainer">
+          <div className="modal">
+            <b>Are you sure you wan't to book this slot?</b>
+            <br />
+            Slot Details
+            <br />
+            <table style={{ width: "100%" }}>
+              <tr>
+                <td>Venue</td>
+                <td>{locality}</td>
+              </tr>
+              <tr>
+                <td>Date</td>
+                <td>
+                  {date} {mlist[month - 1]}
+                </td>
+              </tr>
+              <tr>
+                <td>Slot</td>
+                <td>
+                  {timeSlot} - {parseInt(timeSlot) + 1}:00
+                </td>
+              </tr>
+            </table>
+            <div style={{ float: "right", marginTop: "15px" }}>
+              <button
+                className="btn btn-danger"
+                onClick={() => handleCloseModal()}
+              >
+                Cancel
+              </button>
+              &nbsp;
+              {/* <Link to="/success" state={{'locality':locality,'date':date, 'month':mlist[month-1],'slot':timeSlot}}> */}
+              <button
+                onClick={() => {
+                  confirmBooking();
+                }}
+                className="btn btn-primary"
+              >
+                Yes, Confirm
+              </button>
+              {/* </Link> */}
+              <Link
+                style={{ display: "none!important" }}
+                id="successLink"
+                to="/success"
+                state={{
+                  locality: locality,
+                  date: date,
+                  month: mlist[month - 1],
+                  slot: timeSlot,
+                }}
+              ></Link>
+              <Link
+                style={{ display: "none!important" }}
+                id="failureLink"
+                to="/failure"
+                state={{
+                  locality: locality,
+                  date: date,
+                  month: mlist[month - 1],
+                  slot: timeSlot,
+                }}
+              ></Link>
             </div>
+          </div>
         </div>
-    </div>
-    )
-    ;
-    }
+      </div>
+    );
+  }
 }
 
 export default BookingPreference;
