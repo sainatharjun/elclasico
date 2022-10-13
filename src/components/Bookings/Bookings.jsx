@@ -64,7 +64,7 @@ function Bookings() {
             <div id="Bookings" className="container stripScreen">
             {
                 data.map(el => (
-                <BookingCard location={el.venue.name} startTime={el.slots[0].startTime} endTime={(parseInt(el.slots[0].startTime)>=10?'':'0')+parseInt(parseInt(el.slots[0].startTime)+1)+":00"} date={new Date(el.bookingDate).getDate()+" "+mlist[new Date(el.bookingDate).getMonth()]} price={parseInt(el.amount)-parseInt(el.discountAmount)} bookingId={el._id} cancelModal={handleOpenModal} />
+                <BookingCard location={el.venue.name} startTime={el.slots[0].startTime} endTime={(parseInt(el.slots[0].startTime)>=10?'':'0')+parseInt(parseInt(el.slots[0].startTime)+1)+":00"} dateObj= {new Date(el.bookingDate)} date={new Date(el.bookingDate).getDate()+" "+mlist[new Date(el.bookingDate).getMonth()]} price={parseInt(el.amount)-parseInt(el.discountAmount)} bookingId={el._id} cancelModal={handleOpenModal} />
                 ))
             }
                 <div className='modalContainer'>

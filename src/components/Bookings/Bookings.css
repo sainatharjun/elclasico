@@ -10,7 +10,11 @@
     font-size: 16px;
     line-height: 22px;
     color: #ffffff;
+    border-radius: 10px;
     cursor: pointer;
+}
+.turfCardLogo{
+    margin-right: 0px;
 }
 .cancelContainer{
     border-top: 1px solid #2A547E;
@@ -24,6 +28,13 @@
     border-radius: 7px;
     padding: 15px;
     margin-bottom: 30px;
+}
+.priceImageStyleStyle{
+    display:flex;
+    flex-direction: row;
+}
+.priceImageStyleStyle lhs{
+    justify-self:flex-start;
 }
 @media screen and (max-width:400px) {
     #Bookings{

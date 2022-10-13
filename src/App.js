@@ -44,25 +44,25 @@ function App() {
   }
   return (
     <div style={{ height: '100%' }}>
+      <BrowserRouter>
       {sessionStorage['user'] ? <nav className='nav'>
         <a href='/'>
           <img className='navLogo' src={window.location.href!="http://localhost:3000/admin/allBookings"?"images/el_classico_logo.png":"../images/el_classico_logo.png"} />
         </a>
         <div className='linkDiv'>
           {user.email == 'elclasicoturf@gmail.com' ?
-            <a href="/admin/allBookings">
+            <Link to="/admin/allBookings">
               <span>All Bookings</span>
-            </a>
+            </Link>
             : ''}
-          <a href="/viewBookings">
+          <Link to="/viewBookings">
             <span>My Bookings</span>
-          </a>
+          </Link>
           <a onClick={() => { logout() }} href="javascript:void(0)">
             <span>Logout</span>
           </a>
         </div>
       </nav> : ''}
-      <BrowserRouter>
         <Routes>
           <Route path="/">
             {sessionStorage['user'] ? <Route index element={<LandingPage />} /> : <Route index element={<Login />} />}

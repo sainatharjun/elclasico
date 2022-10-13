@@ -2,13 +2,14 @@ import "./BookingPreference.css";
 import "date-carousel/date-carousel.js";
 import { useState } from "react";
 import $ from "jquery";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import Modal from "react-modal";
 import { useEffect } from "react";
 import moment from "moment";
 
 function BookingPreference(props) {
+    const navigate=useNavigate();
   const location = useLocation();
   const locality = location.state.locality;
   const venue_id = location.state.venue_id;
@@ -186,11 +187,11 @@ function BookingPreference(props) {
             sessionStorage['bookingData']=JSON.stringify({'locality':locality,'date':date, 'month':mlist[month-1],'slot':timeSlot})
             if(res.is_success){
                 console.log(res)
-                window.location.href="/success"
+                navigate("/success");
                 // $('#successLink').trigger('click');
             }
             else{
-                window.location.href="/failure"
+                navigate("/failure")
                 // $('#failureLink').trigger('click');
             }
         })

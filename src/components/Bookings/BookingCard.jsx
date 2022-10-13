@@ -47,7 +47,9 @@ function BookingCard(props) {
             </div>
           </div>
         </div>
-        <div className="cancelContainer">
+        {
+          props.dateObj>new Date()?
+          <div className="cancelContainer">
           <div
             className="cancel"
             onClick={() => {
@@ -57,6 +59,9 @@ function BookingCard(props) {
             Click here to cancel the booking
           </div>
         </div>
+        :
+        console.log(props.dateObj)
+        }
       </div>
     );
 }
