@@ -28,9 +28,15 @@ function Login() {
       
     let handleCloseModal = ()=> {
         $('.modalContainer').hide();
+        window.location.reload();
     }
     let handleResponse=async function(res){
-        $('body').html(`<lottie-player src="images/Loader.json" background="transparent" speed="1" style={{ width: '300px', height: '100%' }} loop autoplay></lottie-player>`)
+        $('#lottiePlayer').show();
+        $('.logo').hide()
+        $('.welcome').hide()
+        $('.welcomeText').hide()
+        $('#signInDiv').hide()
+
         userObj=jwt_decode(res.credential);
         await fetch('https://elclasico-test.herokuapp.com/auth/login',{
             headers: {
@@ -66,9 +72,10 @@ function Login() {
     },[])
     return (
     <div id="Login" className="container">
+        <lottie-player id="lottiePlayer" src="images/Loader.json" background="transparent" speed="1" style={{ width: '300px', height: '100%' , display:'none'}} loop autoplay></lottie-player>
         <img className='logo' src="images/el_classico_logo.png" alt="Logo" />
         <p className='welcome'>Welcome to <span className='elclasico'>Elclasico</span> </p>
-        <p style={{textAlign:'center'}}>Sign in to make a booking</p>
+        <p className='welcomeText' style={{textAlign:'center'}}>Sign in to make a booking</p>
         <div id='signInDiv' style={{margin:'0 auto'}}></div>
 
 
