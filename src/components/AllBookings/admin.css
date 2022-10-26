@@ -31,7 +31,9 @@
     cursor: pointer
 }
 .adminCardContainer{
-    overflow: scroll;
+    min-height: 100px;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 @media screen and (max-width:768px) {

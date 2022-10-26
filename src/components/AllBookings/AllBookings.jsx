@@ -59,7 +59,7 @@ function AllBookings() {
     }, [selectedDate, vId])
     if (isLoaded) {
         return (
-            <div style={{ height: '100%' }} className="stripScreen">
+            <div style={{ height: '100%', justifyContent:'flex-start' }} className="stripScreen">
                 <h3 className="adminDate">{selectedDate.getDate()} {mlist[selectedDate.getMonth()]}, {dlist[selectedDate.getDay()]}</h3>
                 <div onClick={() => { openModal() }} className="adminCalendar">
                     <img src="../images/calendar.svg" alt="" />

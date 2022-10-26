@@ -10,7 +10,8 @@ import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
 
 function LandingPage(props) {
-  var name = "Arjun";
+  var user=JSON.parse(sessionStorage['user'])
+  var name = user.name;
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [venues, setVenues] = useState([]);

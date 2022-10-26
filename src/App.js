@@ -47,7 +47,7 @@ function App() {
       <BrowserRouter>
       {sessionStorage['user'] ? <nav className='nav'>
         <a href='/'>
-          <img className='navLogo' src={window.location.href!="http://localhost:3000/admin/allBookings"?"images/el_classico_logo.png":"../images/el_classico_logo.png"} />
+          <img className='navLogo' src={window.location.href!="https://elclasicoturf.in/admin/allBookings"?"images/el_classico_logo.png":"../images/el_classico_logo.png"} />
         </a>
         <div className='linkDiv'>
           {user.email == 'elclasicoturf@gmail.com' ?
@@ -73,7 +73,7 @@ function App() {
           </Route>
 
           <Route path="/admin">
-            <Route path="allBookings" element={user.email == 'elclasiocturf@gmail.com' ? <AllBookings /> : <Navigate to="/" />} />
+            <Route path="allBookings" element={user.email == 'elclasicoturf@gmail.com' ? <AllBookings /> : <Navigate to="/" />} />
           </Route>
 
         </Routes>
