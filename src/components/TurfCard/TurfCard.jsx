@@ -17,9 +17,9 @@ function TurfCard(props) {
         <div className="rhs">
           <h5>{props.location}</h5>
           <div className="price">
-            <img src="images\₹.svg" alt="rupee" />
+            <img src="images\rupee.svg" alt="rupee" />
             <p>
-              {props.startPrice} - {props.endPrice}
+              {props.price}
             </p>
           </div>
         </div>
@@ -28,7 +28,7 @@ function TurfCard(props) {
         <div className="clockContainer">
           <img src="images\clock 1.svg" alt="clock" />
           <p>
-            {props.startTime} AM - {props.endTime} PM
+            {props.startTime} - {props.endTime}
           </p>
         </div>
         <div className="sportContainer">

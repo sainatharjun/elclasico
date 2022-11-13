@@ -27,6 +27,7 @@ function LandingPage(props) {
           console.log(result.data[0]._id);
           setIsLoaded(true);
           setVenues(result.data);
+          console.log(result.data)
         },
         // Note: it's important to handle errors here
         // instead of a catch() block so thatwe don't wallow
@@ -56,7 +57,7 @@ function LandingPage(props) {
       <div id="LandingPage" className="">
         <div className="greeting">
           <h2>
-            Hey <span className="userName">{name + "!"}</span>
+            Hey <span className="userName">{name.split(' ',1)[0] + "!"}</span>
           </h2>
           <h6 className="subTitleText">What are you in mood for today?</h6>
         </div>
@@ -105,11 +106,10 @@ function LandingPage(props) {
               <TurfCard
                 venue_id={venue._id}
                 location={venue.name}
-                startTime="6"
-                endTime="11"
-                startPrice="700"
-                endPrice="800"
-                discount="block"
+                startTime={venue.startTime}
+                endTime={venue.endTime}
+                price={venue.avgCost}
+                discount="none"
                 discountPrice="100"
               />
             </Link>

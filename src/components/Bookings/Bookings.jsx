@@ -48,9 +48,7 @@ function Bookings() {
         .then(
           (result) => {
             console.log(result)
-            let temp=result.data.filter((el)=>{
-                return el.status!='CANCELLED'
-            })
+            let temp=result.data;
             setData(temp);
             setIsLoaded(true)
           },
@@ -61,15 +59,15 @@ function Bookings() {
     },[])
     if(loaded){
         return (
-            <div id="Bookings" className="container stripScreen">
+            <div id="Bookings" style={{justifyContent:'flex-start'}} className="container stripScreen">
             {
                 data.length?data.map(el => (
-                <BookingCard location={el.venue.name} startTime={el.slots[0].startTime} endTime={(parseInt(el.slots[0].startTime)>=10?'':'0')+parseInt(parseInt(el.slots[0].startTime)+1)+":00"} dateObj= {new Date(el.bookingDate)} date={new Date(el.bookingDate).getDate()+" "+mlist[new Date(el.bookingDate).getMonth()]} price={parseInt(el.amount)-parseInt(el.discountAmount)} bookingId={el._id} cancelModal={handleOpenModal} />
+                <BookingCard venuePhone={el.venue.phoneNumber} location={el.venue.name} startTime={el.slots[0].startTime} endTime={(parseInt(el.slots[el.slots.length-1].startTime)>=10?'':'0')+parseInt(parseInt(el.slots[el.slots.length-1].startTime)+1)+":00"} dateObj= {new Date(el.bookingDate)} date={new Date(el.bookingDate).getDate()+" "+mlist[new Date(el.bookingDate).getMonth()]} price={parseInt(el.amount)-parseInt(el.discountAmount)} bookingId={el._id} cancelModal={handleOpenModal} />
                 )):<h4 style={{textAlign:'center'}}>No Bookings made yet</h4>
             }
                 <div className='modalContainer'>
                     <div className='modal'>
-                        <b>Are you sure you wan't to cancel this slot?</b>
+                        <b>Are you sure you want to cancel this slot?</b>
                         <br />
                         Slot Details
                         <br />

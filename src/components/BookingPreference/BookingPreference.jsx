@@ -9,22 +9,24 @@ import { useEffect } from "react";
 import moment from "moment";
 
 function BookingPreference(props) {
-    const navigate=useNavigate();
+  const navigate = useNavigate();
   const location = useLocation();
   const locality = location.state.locality;
   const venue_id = location.state.venue_id;
   const discount = location.state.discount;
   const today = new Date();
   const [dates, setDates] = useState([]);
+  const [selectedSlots, setSelectedSlots] = useState([]);
   const [date, setDate] = useState(today.getDate());
   const [month, setMonth] = useState(today.getMonth() + 1);
   const [day, setDay] = useState(today.getDay() + 1);
   const [count, setCount] = useState(0);
   const [timeSlot, setTimeSlot] = useState([]);
   const [price, setPrice] = useState(0);
-  const [payable, setPayable] = useState(0);
   const year = today.getFullYear();
   const momentToday = moment(today);
+  const [buttonDisplay, setButtonDisplay] = useState('none');
+  let nowHour= today.getHours();
 
   const mlist = [
     "Jan",
@@ -49,162 +51,201 @@ function BookingPreference(props) {
     setCount(e.target.closest(".dates").dataset.count);
   };
 
-    const sportStateFun=(sportState)=>{
-        if(sport=='cricket')
-            {
-                setSport('football');
-                $('.sportButton').removeClass('active');
-                $('.SBfootball').addClass('active')
-            }
-        else
-        {    
-            setSport('cricket')
-            $('.sportButton').removeClass('active');
-            $('.SBcricket').addClass('active')
-        }
+  const sportStateFun = (sportState) => {
+    if (sport == 'cricket') {
+      setSport('football');
+      $('.sportButton').removeClass('active');
+      $('.SBfootball').addClass('active')
     }
-    const [sport, setSport] = useState('football');
-    let handleOpenModal = ()=> {
-        if(timeSlot!='')
-        $('.modalContainer').css('display','block');
+    else {
+      setSport('cricket')
+      $('.sportButton').removeClass('active');
+      $('.SBcricket').addClass('active')
     }
-      
-    let handleCloseModal = ()=> {
-        $('.modalContainer').hide();
+  }
+  const [sport, setSport] = useState('football');
+  let handleOpenModal = () => {
+    if (timeSlot != '')
+      $('.modalContainer').css('display', 'block');
+  }
+
+  let handleCloseModal = () => {
+    $('.modalContainer').hide();
+  }
+  let compareSlot = (a, b) => {
+    return parseInt(a.startTime) - parseInt(b.startTime);
+  }
+  let handleTimeslot = (e) => {
+    if (document.getElementsByClassName('picked').length > 0) {
+      var pickedLen = document.getElementsByClassName('picked').length - 1;
+      var lastIndex = parseInt(document.getElementsByClassName('picked')[pickedLen].dataset.index);
+      var firsIndex = parseInt(document.getElementsByClassName('picked')[0].dataset.index)
+      var currentIndex = parseInt(e.target.closest('.slotBtn').dataset.index);
     }
-    let handleTimeslot=(e)=>{
-        let tempSlot=timeSlot;
-            $('.slotBtn').removeClass('picked')
-            $(e.target.closest('.slotBtn')).addClass('picked');
-            setTimeSlot(e.target.closest('.slotBtn').dataset.value);
-            setPrice(e.target.closest('.slotBtn').dataset.price);
-            setPayable(e.target.closest('.slotBtn').dataset.price-discount)
+    else {
+      var lastIndex = 0;
+      var firstIndex = 0;
+      var currentIndex = 0;
     }
-    const [error, setError] = useState(null);
-    const [isLoaded, setIsLoaded] = useState(false);
-    const [slots, setSlots] = useState([]);
-  
-    // Note: the empty deps array [] means
-    // this useEffect will run once
-    // similar to componentDidMount
-    useEffect(() => {
-      fetch("https://elclasico-test.herokuapp.com/slots?venueId="+venue_id+"&weekDayCode=*")
-        .then(res => res.json())
-        .then(
-          (result) => {
-            setTimeout(()=>{
-                $('.dates:first-child').addClass('active')
-            },100);
-            setIsLoaded(true);
-            console.log(result)
-            setSlots(result.data);
-          },
-          //Note: it's important to handle errors here
-          // instead of a catch() block so thatwe don't wallow
-          // exceptions from actual bugs in components.
-          (error) => {
-            console.log(error)
-            setIsLoaded(true);
-            setError(error);
-          }
-        )
-        let i=7;
-        let d=0;
-        let j=1;
-        let nowDate=today.getDate()
-        let nowMonth=today.getMonth()+1;
-        let lastDay;
-        let dates=[]
-        let temp;
-        setDates([])
-        if((nowMonth<=7&&nowMonth%2!=0)||(nowMonth>=8&&nowMonth%2==0))
-          lastDay=31;
-        else
-          lastDay=30;
-        let flag=0;
-        while(i>0){
-            if(nowDate+d>lastDay&&flag==0){
-                d=0;
-                nowDate=1;
-                nowMonth++;
-                flag=1;
-            }
-            temp=momentToday.add(1,'day').day();
-            temp=temp?temp:7;
-            dates.push({date:nowDate+d,month:nowMonth,day:temp})
-            
-            d++;
-            i--; 
-            j++;
-        }
-        setDates(dates);
-    }, [])
-  
-    const tConvert =(time)=> {
-        // Check correct time format and split into components
-        time = time.toString ().match (/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [time];
-      
-        if (time.length > 1) { // If time format correct
-          time = time.slice (1);  // Remove full string match value
-          time[5] = +time[0] < 12 ? 'AM' : 'PM'; // Set AM/PM
-          time[0] = +time[0] % 12 || 12; // Adjust hours
-        }
-        return time.join (''); // return adjusted time or original string
+    if (!$(e.target.closest('.slotBtn')).hasClass('picked')) {
+      if (currentIndex == lastIndex + 1 || currentIndex == firsIndex - 1 || document.getElementsByClassName('picked').length == 0) {
+        let tempSlot = timeSlot;
+        $(e.target.closest('.slotBtn')).addClass('picked');
+        setPrice(price+parseInt(e.target.closest('.slotBtn').dataset.price));
+        tempSlot.push({
+          "startTime": e.target.closest('.slotBtn').dataset.value,
+          "weekDayCode": day,
+          "duration": 60
+        });
+        tempSlot.sort(compareSlot)
+        setTimeSlot(tempSlot);
       }
-    const confirmBooking=async function (){
-        let user=JSON.parse(sessionStorage['user']);
-        let tempDate=today;
-        tempDate.setDate(date);
-        tempDate.setMonth(month-1);
-        tempDate.setFullYear(year);
-        await fetch("https://elclasico-test.herokuapp.com/bookings/",{
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-                // 'Content-Type': 'application/x-www-form-urlencoded',
-              },
-            body:JSON.stringify(
-                {
-                    name: user.name,
-                    venueName: locality,
-                    phoneNumber: user.phoneNumber,
-                    amount: price,
-                    voucherName: null,
-                    discountAmount: discount,
-                    venue: venue_id,
-                    bookingDate: tempDate.toISOString(),
-                    user: user._id,
-                    slots: [
-                        {
-                            "startTime": timeSlot,
-                            "weekDayCode": day,
-                            "duration": 60
-                        }
-                    ]
-                }
-            )
-        }).then(res=>res.json()).then(res=>{
-            sessionStorage['bookingData']=JSON.stringify({'locality':locality,'date':date, 'month':mlist[month-1],'slot':timeSlot})
-            if(res.is_success){
-                console.log(res)
-                navigate("/success");
-                // $('#successLink').trigger('click');
-            }
-            else{
-                navigate("/failure")
-                // $('#failureLink').trigger('click');
-            }
-        })
     }
-  
-    if (error) {
-      return <div>Error: {error.message}</div>;
-    } else if (!isLoaded) {
-        return <lottie-player src="images/Loader.json"  background="transparent"  speed="1"  style={{width: '300px', height: '100%'}}  loop autoplay></lottie-player>
-    } else {
-    return  (
-    
-    <div id="BookingPreference" className='stripScreen'>
+    else {
+      if (currentIndex == lastIndex || currentIndex == firsIndex || document.getElementsByClassName('picked').length == 1) {
+        $(e.target).closest('.slotBtn').removeClass('picked')
+        setPrice(price-parseInt(e.target.closest('.slotBtn').dataset.price));
+        let temp = timeSlot;
+        temp.forEach((t, i) => {
+          if (t.startTime == e.target.closest('.slotBtn').dataset.value) {
+            temp.splice(i, 1)
+          }
+        })
+        setTimeSlot(temp);
+      }
+    }
+    $('#slotPreview').html(`
+    ${timeSlot.length > 0 ? tConvert(timeSlot[0].startTime) : ''} -${" "}
+    ${timeSlot.length > 0 ? timeSlot[timeSlot.length - 1].startTime != "" ? tConvert(((parseInt(timeSlot[timeSlot.length - 1].startTime) + 1 < 10 ? '0' : '') + (parseInt(timeSlot[timeSlot.length - 1].startTime) + 1) + ":00") == "24:00" ? "00:00" : ((parseInt(timeSlot[timeSlot.length - 1].startTime) + 1 < 10 ? '0' : '') + (parseInt(timeSlot[timeSlot.length - 1].startTime) + 1) + ":00")) : '' : ''}
+            
+    `)
+    if (document.getElementsByClassName('picked').length > 0) {
+      setButtonDisplay('flex')
+    }
+    else {
+      setButtonDisplay('none')
+    }
+  }
+  const [error, setError] = useState(null);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [slots, setSlots] = useState([]);
+
+  // Note: the empty deps array [] means
+  // this useEffect will run once
+  // similar to componentDidMount
+
+  useEffect(() => {
+    fetch("https://elclasico-test.herokuapp.com/slots?venueId=" + venue_id + "&weekDayCode=*")
+      .then(res => res.json())
+      .then(
+        (result) => {
+          setTimeout(() => {
+            $('.dates:first-child').addClass('active')
+          }, 100);
+          setIsLoaded(true);
+          setSlots(result.data);
+        },
+        //Note: it's important to handle errors here
+        // instead of a catch() block so thatwe don't wallow
+        // exceptions from actual bugs in components.
+        (error) => {
+          console.log(error)
+          setIsLoaded(true);
+          setError(error);
+        }
+      )
+    let i = 7;
+    let d = 0;
+    let j = 1;
+    let nowDate = today.getDate()
+    let nowMonth = today.getMonth() + 1;
+    let lastDay;
+    let dates = []
+    let temp;
+    setDates([])
+    if ((nowMonth <= 7 && nowMonth % 2 != 0) || (nowMonth >= 8 && nowMonth % 2 == 0))
+      lastDay = 31;
+    else
+      lastDay = 30;
+    let flag = 0;
+    while (i > 0) {
+      if (nowDate + d > lastDay && flag == 0) {
+        d = 0;
+        nowDate = 1;
+        nowMonth++;
+        flag = 1;
+      }
+      temp = momentToday.add(1, 'day').day();
+      temp = temp ? temp : 7;
+      dates.push({ date: nowDate + d, month: nowMonth, day: temp })
+
+      d++;
+      i--;
+      j++;
+    }
+    setDates(dates);
+  }, [])
+
+
+
+  const tConvert = (time) => {
+    // Check correct time format and split into components
+    time = time.toString().match(/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [time];
+
+    if (time.length > 1) { // If time format correct
+      time = time.slice(1);  // Remove full string match value
+      time[5] = +time[0] < 12 ? 'AM' : 'PM'; // Set AM/PM
+      time[0] = +time[0] % 12 || 12; // Adjust hours
+    }
+    return time.join(''); // return adjusted time or original string
+  }
+  const confirmBooking = async function () {
+    let user = JSON.parse(sessionStorage['user']);
+    let tempDate = today;
+    tempDate.setDate(date);
+    tempDate.setMonth(month - 1);
+    tempDate.setFullYear(year);
+    await fetch("https://elclasico-test.herokuapp.com/bookings/", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: JSON.stringify(
+        {
+          name: user.name,
+          venueName: locality,
+          phoneNumber: user.phoneNumber,
+          amount: price,
+          voucherName: null,
+          discountAmount: discount,
+          venue: venue_id,
+          bookingDate: tempDate.toISOString(),
+          user: user._id,
+          slots: timeSlot
+        }
+      )
+    }).then(res => res.json()).then(res => {
+      sessionStorage['bookingData'] = JSON.stringify({ 'locality': locality, 'date': date, 'month': mlist[month - 1], 'slot': timeSlot })
+      if (res.is_success) {
+        navigate("/success");
+        // $('#successLink').trigger('click');
+      }
+      else {
+        navigate("/failure")
+        // $('#failureLink').trigger('click');
+      }
+    })
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  } else if (!isLoaded) {
+    return <lottie-player src="images/Loader.json" background="transparent" speed="1" style={{ width: '300px', height: '100%' }} loop autoplay></lottie-player>
+  } else {
+    return (
+
+      <div id="BookingPreference" className='stripScreen'>
         <Link to="/">
           <img
             src="images/left-arrow.svg"
@@ -251,57 +292,58 @@ function BookingPreference(props) {
         </div>
         <h5 className="fadedText">Select Time Slot</h5>
         <div id="timeSlots">
-            {
-                slots[count].slots.map(s=>(
-                    <div className='slotBtn' onClick={(event)=>handleTimeslot(event)} data-value={s.time} data-price={s.cost}>{tConvert(s.time)} - {tConvert(((parseInt(s.time)+1<10?'0':'')+(parseInt(s.time)+1)+":00")=="24:00"?"00:00":((parseInt(s.time)+1<10?'0':'')+(parseInt(s.time)+1)+":00"))}</div>
-                ))
-            }
+          {
+            slots[count].slots.map(s => (
+              day==today.getDay()+1?parseInt(s.id)>nowHour?<div className='slotBtn' onClick={(event) => handleTimeslot(event)} data-index={s.id} data-value={s.time} data-price={s.cost}>{tConvert(s.time)} - {tConvert(((parseInt(s.time) + 1 < 10 ? '0' : '') + (parseInt(s.time) + 1) + ":00") == "24:00" ? "00:00" : ((parseInt(s.time) + 1 < 10 ? '0' : '') + (parseInt(s.time) + 1) + ":00"))}</div>:null:
+              <div className='slotBtn' onClick={(event) => handleTimeslot(event)} data-index={s.id} data-value={s.time} data-price={s.cost}>{tConvert(s.time)} - {tConvert(((parseInt(s.time) + 1 < 10 ? '0' : '') + (parseInt(s.time) + 1) + ":00") == "24:00" ? "00:00" : ((parseInt(s.time) + 1 < 10 ? '0' : '') + (parseInt(s.time) + 1) + ":00"))}</div>
+            ))
+          }
         </div>
         <div className='priceDiv'>
-            <h4>Price Details</h4>
-            <div className='row'>
-                <div className='col col_left'>
-                    <p className='fadedText'>
-                        Slot Cost
-                    </p>
-                </div>
-                <div className='col col_right'>
-                    <p className='fadedText'>
-                        Rs.{price}
-                    </p>
-                </div>
+          <h4>Price Details</h4>
+          <div className='row'>
+            <div className='col col_left'>
+              <p className='fadedText'>
+                Slot Cost
+              </p>
             </div>
-            <div className='row'>
-                <div className='col col_left'>
-                    <p className='fadedText'>
-                        Discount
-                    </p>
-                </div>
-                <div className='col col_right'>
-                    <p className='fadedText'>
-                        Rs.{discount}
-                    </p>
-                </div>
+            <div className='col col_right'>
+              <p className='fadedText'>
+                Rs.{price}
+              </p>
             </div>
-            <hr />
-            <div className='row'>
-                <div className='col col_left'>
-                    <p className='fadedText'>
-                        Total
-                    </p>
-                </div>
-                <div className='col col_right'>
-                    <p className='fadedText'>
-                        Rs.{payable}
-                    </p>
-                </div>
+          </div>
+          <div className='row'>
+            <div className='col col_left'>
+              <p className='fadedText'>
+                Discount
+              </p>
             </div>
+            <div className='col col_right'>
+              <p className='fadedText'>
+                Rs.{discount}
+              </p>
+            </div>
+          </div>
+          <hr />
+          <div className='row'>
+            <div className='col col_left'>
+              <p className='fadedText'>
+                Total
+              </p>
+            </div>
+            <div className='col col_right'>
+              <p className='fadedText'>
+                Rs.{price-discount}
+              </p>
+            </div>
+          </div>
         </div>
         <button
           style={{
-            backgroundColor: timeSlot != "" ? "green" : "crimson",
-            display: timeSlot != "" ? "block" : "none",
-            cursor: timeSlot != "" ? "pointer" : "default",
+            backgroundColor: "crimson",
+            display: buttonDisplay,
+            cursor: "pointer",
           }}
           onClick={() => {
             handleOpenModal();
@@ -309,14 +351,14 @@ function BookingPreference(props) {
           className="confirmBooking"
         >
           <p className="cbl">
-            Selected Slot
-            <p>
-              {timeSlot} -{" "}
-              {timeSlot != "" ? parseInt(timeSlot) + 1 + ":00" : ""}
+          &#8377;{price-discount} | 
+            <p style={{display:'inline'}} id="slotPreview">
+              {/* {timeSlot.length>0 ? timeSlot[0].startTime : ''} -{" "}
+              {timeSlot.length>0 ? timeSlot[timeSlot.length - 1].startTime != "" ? parseInt(timeSlot[timeSlot.length - 1].startTime) + 1 + ":00" : "" : ''} */}
             </p>
           </p>
           <h5 className="cbr">
-            {timeSlot != "" ? "Confirm Booking" : "Select a Time Slot"}
+            Confirm Booking &gt;
           </h5>
         </button>
         <div className="modalContainer">
@@ -339,7 +381,8 @@ function BookingPreference(props) {
               <tr>
                 <td>Slot</td>
                 <td>
-                  {timeSlot} - {parseInt(timeSlot) + 1}:00
+                  {timeSlot.length > 0 ? tConvert(timeSlot[0].startTime) : ''} -{" "}
+                  {timeSlot.length > 0 ? timeSlot[timeSlot.length - 1].startTime != "" ? tConvert(((parseInt(timeSlot[timeSlot.length - 1].startTime) + 1 < 10 ? '0' : '') + (parseInt(timeSlot[timeSlot.length - 1].startTime) + 1) + ":00") == "24:00" ? "00:00" : ((parseInt(timeSlot[timeSlot.length - 1].startTime) + 1 < 10 ? '0' : '') + (parseInt(timeSlot[timeSlot.length - 1].startTime) + 1) + ":00")) : '' : ''}
                 </td>
               </tr>
             </table>

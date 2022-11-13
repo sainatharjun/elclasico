@@ -35,6 +35,7 @@ function BookingCard(props) {
               <img src="images\clock 1.svg" alt="clock" />
               <p>
                 {tConvert(props.startTime)} - {tConvert(props.endTime)}
+                {console.log(props.endTime)}
               </p>
             </div>
             <div className="timings">
@@ -42,9 +43,10 @@ function BookingCard(props) {
               <p>{props.date}</p>
             </div>
             <div className="price">
-              <img src="images\₹.svg" alt="clock" />
+              <img src="images\rupee.svg" alt="clock" />
               <p>{props.price}</p>
             </div>
+            <a style={{color:'green'}} href={"tel:"+props.venuePhone}>Call Venue</a>
           </div>
         </div>
         {

@@ -59,6 +59,14 @@ function Login() {
         .catch((err)=>console.log(err))
 
     }
+    var phoneno = /^(0|[1-9][0-9]*)$/;
+    $('#phone').on('keyup',function (event) {
+        console.log((document.getElementById('phone').value.match(phoneno)))
+        var keycode = event.keycode;
+        if (!(document.getElementById('phone').value.match(phoneno))||$('#phone').val().length==10) {
+            event.preventDefault();
+        }
+    });
       useEffect(()=>{
         google.accounts.id.initialize({
             client_id:'218984651478-6lcir8b5fgveufh1vm7lup65li6fb6ul.apps.googleusercontent.com',
@@ -90,7 +98,12 @@ function Login() {
                 <div style={{float:'right',marginTop:'15px'}}>
                 <button className='btn btn-danger' onClick={()=>handleCloseModal()}>Cancel</button>
                 &nbsp;
-                    <button onClick={()=>{register()}} className='btn btn-primary'>Register</button>
+                    <button onClick={()=>{register()}} className='btn btn-primary'>Register</button>                    
+                </div>
+                <div>
+                <div style={{float:'right',fontSize:'14px',marginTop:'15px'}}>
+                By signing up you accept to receive emails from elclasicoturf.in
+                </div>
                 </div>
             </div>
         </div>
