@@ -8,6 +8,31 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 
 function AllBookings() {
+    let handleOpenModal = (obj)=> {
+        console.log(obj)
+        $('#location').text(obj.location);
+        $('#date').text(obj.date);
+        $('#st').text(obj.startTime);
+        $('#et').text(obj.endTime);
+        setC_BookingId(obj.bookingId)
+        $('.cancelModalContainer').css('display','block');
+        
+    }
+    let cancelBooking=async()=>{
+        // console.log(c_bookingID)
+        await fetch("https://elclasico-test.herokuapp.com/bookings/cancel",{
+            method:'POST',
+            headers: {
+                'Content-Type': 'application/json'
+                // 'Content-Type': 'application/x-www-form-urlencoded',
+              },
+            body:JSON.stringify(
+                {bookingId:c_bookingID})
+        })
+        .then(res => res.json())
+        .then((data)=>{console.log(data);window.location.reload()})
+        .catch((err)=>console.log(err))
+    }
     const [selectedDate, onChange] = useState(new Date());
     const openModal = () => {
         $('.modalContainer').show();
@@ -25,13 +50,18 @@ function AllBookings() {
     const handleCloseModal = () => {
         $('.modalContainer').hide();
     }
+    const c_handleCloseModal = () => {
+        $('.cancelModalContainer').hide();
+    }
+    const [c_bookingID,setC_BookingId]=useState(null)
     const [bookings, setBookings] = useState(null);
-    const user = JSON.parse(sessionStorage['user'])
+    const user = JSON.parse(sessionStorage['user']);
+    let reqDate=new Date(new Date(selectedDate).setMinutes(330));
     useEffect(() => {
         fetch("https://elclasico-test.herokuapp.com/venues").then((res) => res.json())
             .then((v) => {
                 setVenues(v.data);
-                console.log(vId)
+                console.log(new Date(new Date(selectedDate).setMinutes(330)).toISOString())
                 fetch("https://elclasico-test.herokuapp.com/venues/getBookings", {
                     method: 'POST',
                     headers: {
@@ -41,7 +71,7 @@ function AllBookings() {
                     body: JSON.stringify(
                         {
                             venueId: vId,
-                            date: selectedDate,
+                            date: reqDate.toISOString()
 
                         }
                     )
@@ -72,8 +102,9 @@ function AllBookings() {
                     }
                 </select>
                 <div className="adminCardContainer">
+                    {/* {console.log(bookings)} */}
                 {bookings ? bookings.map((booking) => (
-                    <Admincard name={booking.user.name} startTime={booking.startTime} endTime={booking.endTime} price={booking.booking.amount - booking.booking.discountAmount} phone={booking.user.phoneNumber}></Admincard>
+                    <Admincard date={new Date(booking.booking.bookingDate).getDate()+" "+mlist[new Date(booking.booking.bookingDate).getMonth()]} location={booking.booking.venueName} bookingId={booking.booking._id} cancelModal={handleOpenModal} name={booking.user.name} startTime={booking.startTime} endTime={booking.endTime} price={booking.booking.amount - booking.booking.discountAmount} phone={booking.user.phoneNumber} dateObj={new Date(selectedDate)}></Admincard>
                 )) : <h3 style={{ margin: '0 auto',textAlign:'center' }}>No bookings on this day</h3>}
                 </div>
                 <div className='modalContainer'>
@@ -83,6 +114,47 @@ function AllBookings() {
                         <Calendar onChange={onChange} value={selectedDate} />
                         <div style={{ float: 'right', marginTop: '15px' }}>
                             <button className='btn btn-danger' onClick={() => handleCloseModal()}>Close</button>
+                        </div>
+                    </div>
+                </div>
+                <div className='cancelModalContainer'>
+                    <div className='modal'>
+                        <b>Are you sure you want to cancel this slot?</b>
+                        <br />
+                        Slot Details
+                        <br />
+                        <table style={{width:'100%'}}>
+                            <tr>
+                                <td>
+                                    Venue
+                                </td>
+                                <td>
+                                    <span id='location'></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Date
+                                </td>
+                                <td>
+                                    <span id='date'></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Slot
+                                </td>
+                                <td>
+                                    <span id='st'></span> - <span id='et'></span>
+                                </td>
+                            </tr>
+                        </table>
+                        <br />
+                        <p style={{fontWeight:700}}>Are you sure you want to cancel this booking?</p>
+                        <div style={{float:'right',marginTop:'15px'}}>
+                        <button className='btn btn-primary' onClick={()=>c_handleCloseModal()}>No</button>
+                        &nbsp;
+                            <button className='btn btn-danger' onClick={()=>cancelBooking(c_bookingID)}>Yes, Cancel</button>
                         </div>
                     </div>
                 </div>

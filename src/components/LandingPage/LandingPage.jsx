@@ -100,7 +100,7 @@ function LandingPage(props) {
               state={{
                 locality: venue.name,
                 venue_id: venue._id,
-                discount: 100,
+                discount: 0,
               }}
             >
               <TurfCard
@@ -110,7 +110,7 @@ function LandingPage(props) {
                 endTime={venue.endTime}
                 price={venue.avgCost}
                 discount="none"
-                discountPrice="100"
+                discountPrice="0"
               />
             </Link>
           ))}

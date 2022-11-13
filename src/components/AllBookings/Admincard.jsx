@@ -14,22 +14,39 @@ function Admincard(props) {
         }
         return time.join(''); // return adjusted time or original string
     }
-    return  (
+    return (
         <div className="adminCard">
-            <div className="lhs">
-                <h5>{props.name}&nbsp;<img style={{display:'inline'}} src="../images/football.png" alt="football" /></h5>
-                <a style={{color:'black',textDecoration:'none'}} href={'tel:'+props.phone}><h6><img style={{display:'inline',height:'20px'}} src="../images/phone.png" alt="football" />&nbsp;+91 {props.phone}</h6></a>
-            </div>
-            <div className='rhs'>
-                <div className='timings'>
-                    <img src="..\images\clock 1.svg" alt="clock" />
-                    <p>{tConvert(props.startTime)} - {tConvert(props.endTime)}</p>
+            <div className="row">
+                <div className="lhs col-7">
+                    <h5>{props.name.split(' ',1)[0]}</h5>
+                    <a style={{ color: 'black', textDecoration: 'none' }} href={'tel:' + props.phone}><h6><img style={{ display: 'inline', height: '20px' }} src="../images/phone.png" alt="football" />&nbsp;+91 {props.phone}</h6></a>
                 </div>
-                <div className='price'>
-                <img src="..\images\rupee.svg" alt="rupees" />
-                    <p>{props.price}</p>
+                <div className='rhs col-5'>
+                    <div className='timings'>
+                        <img src="..\images\clock 1.svg" alt="clock" />
+                        <p>{tConvert(props.startTime)} - {tConvert(props.endTime)}</p>
+                    </div>
+                    <div className='price'>
+                        <img src="..\images\rupee.svg" alt="rupees" />
+                        <p>{props.price}</p>
+                    </div>
                 </div>
             </div>
+            {
+                props.dateObj > new Date() ?
+                    <div className="row"><div className="cancelContainer">
+                    <div
+                        className="cancel"
+                        onClick={() => {
+                            props.cancelModal(props);
+                        }}
+                    >
+                        Click here to cancel the booking
+                    </div>
+                </div></div>
+                    :
+                    console.log(props.dateObj)
+            }
         </div>
     )
 }

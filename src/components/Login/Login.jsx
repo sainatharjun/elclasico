@@ -2,6 +2,7 @@ import './Login.css';
 import jwt_decode from "jwt-decode";
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { useEffect } from 'react'
+import validator from 'validator' 
 
 function Login() {
      /* eslint-disable */
@@ -60,13 +61,12 @@ function Login() {
 
     }
     var phoneno = /^(0|[1-9][0-9]*)$/;
-    $('#phone').on('keyup',function (event) {
-        console.log((document.getElementById('phone').value.match(phoneno)))
-        var keycode = event.keycode;
-        if (!(document.getElementById('phone').value.match(phoneno))||$('#phone').val().length==10) {
-            event.preventDefault();
-        }
-    });
+    let validatePhoneNumber = (event) => {
+        let number=event.key;
+        const isValidPhoneNumber = validator.isNumeric(number)
+        if(!isValidPhoneNumber || $('#phone').val().length==10)
+        event.preventDefault();
+       }
       useEffect(()=>{
         google.accounts.id.initialize({
             client_id:'218984651478-6lcir8b5fgveufh1vm7lup65li6fb6ul.apps.googleusercontent.com',
@@ -93,7 +93,7 @@ function Login() {
             <div className='modal'>
                 <center>
                     Please enter your phone phone number:
-                    <input id="phone" type="text" className='form-control' />
+                    <input id="phone" pattern="\d*" onKeyPress={()=>{validatePhoneNumber(event)}} type="text" className='form-control' />
                 </center>
                 <div style={{float:'right',marginTop:'15px'}}>
                 <button className='btn btn-danger' onClick={()=>handleCloseModal()}>Cancel</button>
