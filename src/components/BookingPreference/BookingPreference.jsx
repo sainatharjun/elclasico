@@ -135,7 +135,7 @@ function BookingPreference(props) {
   // similar to componentDidMount
 
   useEffect(() => {
-    fetch("https://elcasico-backend.onrender.com/slots?venueId=" + venue_id + "&weekDayCode=*")
+    fetch("https://elclasico-test.herokuapp.com/slots?venueId=" + venue_id + "&weekDayCode=*")
       .then(res => res.json())
       .then(
         (result) => {
@@ -205,7 +205,8 @@ function BookingPreference(props) {
     tempDate.setDate(date);
     tempDate.setMonth(month - 1);
     tempDate.setFullYear(year);
-    await fetch("https://elcasico-backend.onrender.com/bookings/", {
+    tempDate.setMinutes(tempDate.getMinutes()+330);
+    await fetch("https://elclasico-test.herokuapp.com/bookings/", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

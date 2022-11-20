@@ -9,7 +9,7 @@ function Login() {
      var userObj;
      let register=async()=>{
         let phone=$('#phone').val();
-        await fetch('https://elcasico-backend.onrender.com/auth/register',{
+        await fetch('https://elclasico-test.herokuapp.com/auth/register',{
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -39,7 +39,7 @@ function Login() {
         $('#signInDiv').hide()
 
         userObj=jwt_decode(res.credential);
-        await fetch('https://elcasico-backend.onrender.com/auth/login',{
+        await fetch('https://elclasico-test.herokuapp.com/auth/login',{
             headers: {
                 'Content-Type': 'application/json'
             },

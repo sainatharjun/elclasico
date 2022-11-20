@@ -20,7 +20,7 @@ function AllBookings() {
     }
     let cancelBooking=async()=>{
         // console.log(c_bookingID)
-        await fetch("https://elcasico-backend.onrender.com/bookings/cancel",{
+        await fetch("https://elclasico-test.herokuapp.com/bookings/cancel",{
             method:'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -58,11 +58,11 @@ function AllBookings() {
     const user = JSON.parse(sessionStorage['user']);
     let reqDate=new Date(new Date(selectedDate).setMinutes(330));
     useEffect(() => {
-        fetch("https://elcasico-backend.onrender.com/venues").then((res) => res.json())
+        fetch("https://elclasico-test.herokuapp.com/venues").then((res) => res.json())
             .then((v) => {
                 setVenues(v.data);
                 console.log(new Date(new Date(selectedDate).setMinutes(330)).toISOString())
-                fetch("https://elcasico-backend.onrender.com/venues/getBookings", {
+                fetch("https://elclasico-test.herokuapp.com/venues/getBookings", {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
