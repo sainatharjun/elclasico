@@ -35,7 +35,6 @@ function BookingCard(props) {
               <img src="images\clock 1.svg" alt="clock" />
               <p>
                 {tConvert(props.startTime)} - {tConvert(props.endTime)}
-                {console.log(props.endTime)}
               </p>
             </div>
             <div className="timings">

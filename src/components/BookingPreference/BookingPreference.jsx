@@ -254,7 +254,7 @@ function BookingPreference(props) {
             srcset=""
           />
         </Link>
-        <h4 className="BPHeader">Elclasico, {locality}</h4>
+        <h4 className="BPHeader">{locality}</h4>
         <h5 className="fadedText">Select Sport</h5>
         <div className="sportButtonDiv">
           <button
