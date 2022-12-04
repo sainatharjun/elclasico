@@ -8,13 +8,15 @@ function Login() {
      /* eslint-disable */
      var userObj;
      let register=async()=>{
+        let name=$('#name').val();
+        let email=$('#email').val();
         let phone=$('#phone').val();
         await fetch('https://elclasico-test.herokuapp.com/auth/register',{
             headers: {
                 'Content-Type': 'application/json'
             },
             method:'POST',
-            body:JSON.stringify({"email":userObj.email,"name":userObj.name,"phoneNumber":phone})
+            body:JSON.stringify({"email":email,"name":name,"phoneNumber":phone})
         })
         .then(res=>res.json())
         .then(res=>{
@@ -84,17 +86,25 @@ function Login() {
         <img className='logo' src="images/el_classico_logo.png" alt="Logo" />
         <p className='welcome'>Welcome to <span className='elclasico'>Elclasico</span> </p>
         <p className='welcomeText' style={{textAlign:'center'}}>Sign in to make a booking</p>
-        <div id='signInDiv' style={{margin:'0 auto'}}></div>
+        <button className="abcRioButtonLightBlue" onClick={()=>{handleOpenModal()}} style={{margin:'0 auto'}}>
+            Sign In
+        </button>
 
 
 
 
         <div className='modalContainer'>
             <div className='modal'>
-                <center>
-                    Please enter your phone phone number:
-                    <input id="phone" pattern="\d*" onKeyPress={()=>{validatePhoneNumber(event)}} type="text" className='form-control' />
-                </center>
+                <div>
+                    Username:
+                    <input id="name" placeholder='Username' type="text" className='form-control' />
+                    <br />
+                    Email:
+                    <input id="email" placeholder='Email' type="email" className='form-control' />
+                    <br />
+                    Phone Number:
+                    <input id="phone" placeholder='Phone Number' pattern="\d*" onKeyPress={()=>{validatePhoneNumber(event)}} type="text" className='form-control' />
+                </div>
                 <div style={{float:'right',marginTop:'15px'}}>
                 <button className='btn btn-danger' onClick={()=>handleCloseModal()}>Cancel</button>
                 &nbsp;

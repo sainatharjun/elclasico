@@ -58,9 +58,9 @@ function App() {
           <Link to="/viewBookings">
             <span>My Bookings</span>
           </Link>
-          <a onClick={() => { logout() }} href="javascript:void(0)">
+          {/* <a onClick={() => { logout() }} href="javascript:void(0)">
             <span>Logout</span>
-          </a>
+          </a> */}
         </div>
       </nav> : ''}
         <Routes>
