@@ -87,7 +87,7 @@ function Login() {
         <img className='logo' src="images/el_classico_logo.png" alt="Logo" />
         <p className='welcome'>Welcome to <span className='elclasico'>Elclasico</span> </p>
         <p className='welcomeText' style={{textAlign:'center'}}>Sign in to make a booking</p>
-        <button className="abcRioButtonLightBlue" onClick={()=>{handleOpenModal()}} style={{margin:'0 auto'}}>
+        <button className="btn btn-outline-primary" onClick={()=>{handleOpenModal()}} style={{margin:'0 auto'}}>
             Sign In
         </button>
 
