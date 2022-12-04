@@ -21,6 +21,7 @@ function Login() {
         .then(res=>res.json())
         .then(res=>{
             sessionStorage['user']=JSON.stringify(res.data);
+            document.cookie='user='+JSON.stringify(res.data)
             window.location.reload();
         })
         .catch((err)=>console.log(err))
