@@ -47,7 +47,6 @@ function Bookings() {
         .then(res => res.json())
         .then(
           (result) => {
-            console.log(result)
             let temp=result.data;
             setData(temp);
             setIsLoaded(true)

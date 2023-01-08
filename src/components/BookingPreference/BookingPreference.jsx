@@ -200,6 +200,7 @@ function BookingPreference(props) {
     return time.join(''); // return adjusted time or original string
   }
   const confirmBooking = async function () {
+    $('.confirm-btn').attr('disabled',true)
     let user = JSON.parse(sessionStorage['user']);
     let tempDate = today;
     tempDate.setDate(date);
@@ -227,6 +228,7 @@ function BookingPreference(props) {
         }
       )
     }).then(res => res.json()).then(res => {
+    $('.confirm-btn').attr('disabled',false)
       sessionStorage['bookingData'] = JSON.stringify({ 'locality': locality, 'date': date, 'month': mlist[month - 1], 'slot': timeSlot })
       if (res.is_success) {
         navigate("/success");
@@ -400,7 +402,7 @@ function BookingPreference(props) {
                 onClick={() => {
                   confirmBooking();
                 }}
-                className="btn btn-primary"
+                className="btn confirm-btn btn-primary"
               >
                 Yes, Confirm
               </button>
