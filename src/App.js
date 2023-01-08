@@ -12,11 +12,11 @@ import AllBookings from './components/AllBookings/AllBookings';
 
 /* eslint-disable */
 function App() {
-  const getCookie=function (cname) {
+  const getCookie = function (cname) {
     let name = cname + "=";
     let decodedCookie = decodeURIComponent(document.cookie);
     let ca = decodedCookie.split(';');
-    for(let i = 0; i <ca.length; i++) {
+    for (let i = 0; i < ca.length; i++) {
       let c = ca[i];
       while (c.charAt(0) == ' ') {
         c = c.substring(1);
@@ -29,12 +29,12 @@ function App() {
   }
   const logout = () => {
     sessionStorage.removeItem('user');
-    document.cookie='user=;expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
+    document.cookie = 'user=;expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
     window.location.href = "/";
   }
-  let user=getCookie('user');
+  let user = getCookie('user');
   if (user) {
-    sessionStorage['user']=user;
+    sessionStorage['user'] = user;
     user = JSON.parse(user)
   }
   else {
@@ -45,24 +45,27 @@ function App() {
   return (
     <div style={{ height: '100%' }}>
       <BrowserRouter>
-      {sessionStorage['user'] ? <nav className='nav'>
-        <a href='/'>
-          <img className='navLogo' src={window.location.href!="https://elclasicoturf.in/admin/allBookings"?"images/el_classico_logo.png":"../images/el_classico_logo.png"} />
-        </a>
-        <div className='linkDiv'>
-          {user.email == 'elclasicoturf@gmail.com' ?
-            <Link to="/admin/allBookings">
-              <span>All Bookings</span>
-            </Link>
-            : ''}
-          <Link to="/viewBookings">
-            <span>My Bookings</span>
-          </Link>
-          <a onClick={() => { logout() }} href="javascript:void(0)">
-            <span>Logout</span>
+        {sessionStorage['user'] ? <nav className='nav'>
+          <a href='/'>
+            <img className='navLogo' src={window.location.href != "https://elclasicoturf.in/admin/allBookings" ? "images/el_classico_logo.png" : "../images/el_classico_logo.png"} />
           </a>
-        </div>
-      </nav> : ''}
+          <div className='linkDiv'>
+            {user.email == 'elclasicoturf@gmail.com' ?
+              <Link to="/admin/allBookings">
+                <span>All Bookings</span>
+              </Link>
+              : ''}
+            {user.email != 'elclasicoturf@gmail.com' ?
+              <Link to="/viewBookings">
+                <span>My Bookings</span>
+              </Link>
+              : ''}
+
+            <a onClick={() => { logout() }} href="javascript:void(0)">
+              <span>Logout</span>
+            </a>
+          </div>
+        </nav> : ''}
         <Routes>
           <Route path="/">
             {sessionStorage['user'] ? <Route index element={<LandingPage />} /> : <Route index element={<Login />} />}

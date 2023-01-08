@@ -35,3 +35,12 @@ html, body, #root {
 .elclasico{
     color:#2D328F;
 }
+.passwordDiv{
+    position: relative;
+}
+.fa-eye{
+    top: 32%;
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+}

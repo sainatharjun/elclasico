@@ -113,7 +113,7 @@ function AllBookings() {
                         <br />
                         <Calendar onChange={onChange} value={selectedDate} />
                         <div style={{ float: 'right', marginTop: '15px' }}>
-                            <button className='btn btn-danger' onClick={() => handleCloseModal()}>Close</button>
+                            <button className='btn btn-success' onClick={() => handleCloseModal()}>OK</button>
                         </div>
                     </div>
                 </div>

@@ -7,7 +7,17 @@ import validator from 'validator'
 function Login() {
     /* eslint-disable */
     var userObj;
+    let toggleShowPassword = (id) => {
+        if($("#"+id).closest('.passwordDiv').find('input').attr('type')=='password'){
+            $("#"+id).closest('.passwordDiv').find('input').attr('type','text')
+        }
+        else{
+            $("#"+id).closest('.passwordDiv').find('input').attr('type','password')
+        }
+        console.log(id)
+    }
     let register = async () => {
+        $('.register-btn').attr('disabled', true)
         let name = $('#r_name').val();
         let email = $('#r_email').val();
         let phone = $('#r_phone').val();
@@ -34,6 +44,7 @@ function Login() {
         })
             .then(res => res.json())
             .then(res => {
+                $('.register-btn').attr('disabled', false)
                 sessionStorage['user'] = JSON.stringify(res.data);
                 document.cookie = 'user=' + JSON.stringify(res.data)
                 window.location.reload();
@@ -41,6 +52,7 @@ function Login() {
             .catch((err) => console.log(err))
     }
     let login = async () => {
+        $('.login-btn').attr('disabled', true)
         // let name=$('#name').val();
         let email = $('#l_email').val();
         let password = $('#l_password').val();
@@ -61,9 +73,15 @@ function Login() {
         })
             .then(res => res.json())
             .then(res => {
-                sessionStorage['user'] = JSON.stringify(res.data);
-                document.cookie = 'user=' + JSON.stringify(res.data)
-                window.location.reload();
+                $('.login-btn').attr('disabled', false)
+                if (res.is_success) {
+                    sessionStorage['user'] = JSON.stringify(res.data);
+                    document.cookie = 'user=' + JSON.stringify(res.data)
+                    window.location.reload();
+                }
+                else {
+                    alert('Incorrect password provided')
+                }
             })
             .catch((err) => console.log(err))
     }
@@ -128,7 +146,7 @@ function Login() {
             <img className='logo' src="images/el_classico_logo.png" alt="Logo" />
             <p className='welcome'>Welcome to <span className='elclasico'>Elclasico</span> </p>
             <p className='welcomeText' style={{ textAlign: 'center' }}>Sign in to make a booking</p>
-            <div style={{'display':'flex','flexDirection':'row','width':'200px','justifyContent':'space-between','margin':'0 auto'}}>
+            <div style={{ 'display': 'flex', 'flexDirection': 'row', 'width': '200px', 'justifyContent': 'space-between', 'margin': '0 auto' }}>
                 <button className="btn btn-outline-primary" onClick={() => { handleOpenModal('loginModal') }} style={{ margin: '0 auto' }}>
                     Login
                 </button>
@@ -153,15 +171,20 @@ function Login() {
                         <input id="r_phone" placeholder='Phone Number' pattern="\d*" onKeyPress={() => { validatePhoneNumber(event) }} type="text" className='form-control' />
                         <br />
                         Password:
-                        <input id="r_password" placeholder='Password' type="password" className='form-control' />
+                        <div className="passwordDiv">
+                            <input id="r_password" placeholder='Password' type="password" className='form-control' />
+                            <i onClick={function () { toggleShowPassword('r_password') }} class="fa fa-eye" aria-hidden="true"></i>
+                        </div>
                         <br />
                         Re-enter Password:
-                        <input id="r_reenterpassword" placeholder='Re-enter Password' type="password" className='form-control' />
+                        <div className="passwordDiv">
+                            <input id="r_reenterpassword" placeholder='Re-enter Password' type="password" className='form-control' />
+                        </div>
                     </div>
                     <div style={{ float: 'right', marginTop: '15px' }}>
                         <button className='btn btn-danger' onClick={() => handleCloseModal()}>Cancel</button>
                         &nbsp;
-                        <button onClick={() => { register() }} className='btn btn-primary'>Register</button>
+                        <button onClick={() => { register() }} className='btn register-btn btn-primary'>Register</button>
                     </div>
                     <div>
                         <div style={{ float: 'right', fontSize: '14px', marginTop: '15px' }}>
@@ -177,12 +200,15 @@ function Login() {
                         <input id="l_email" placeholder='Email' type="email" className='form-control' />
                         <br />
                         Password:
-                        <input id="l_password" placeholder='Password' type="password" className='form-control' />
+                        <div className="passwordDiv">
+                            <input id="l_password" placeholder='Password' type="password" className='form-control password' />
+                            <i onClick={function () { toggleShowPassword('l_password') }} class="fa fa-eye" aria-hidden="true"></i>
+                        </div>
                     </div>
                     <div style={{ float: 'right', marginTop: '15px' }}>
                         <button className='btn btn-danger' onClick={() => handleCloseModal()}>Cancel</button>
                         &nbsp;
-                        <button onClick={() => { login() }} className='btn btn-primary'>Login</button>
+                        <button onClick={() => { login() }} className='btn login-btn btn-primary'>Login</button>
                     </div>
                     <div>
                     </div>

@@ -175,6 +175,9 @@
     padding: 30px 50px;
     top: 17%;
 }
+#registerModal .modal{
+    top: 2%;
+}
 .modal table{
     margin-top: 20px;
 }
