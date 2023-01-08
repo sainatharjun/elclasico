@@ -135,7 +135,7 @@ function BookingPreference(props) {
   // similar to componentDidMount
 
   useEffect(() => {
-    fetch("https://elclasico-test.herokuapp.com/slots?venueId=" + venue_id + "&weekDayCode=*")
+    fetch("https://wild-pink-woodpecker-vest.cyclic.app/slots?venueId=" + venue_id + "&weekDayCode=*")
       .then(res => res.json())
       .then(
         (result) => {
@@ -206,7 +206,7 @@ function BookingPreference(props) {
     tempDate.setMonth(month - 1);
     tempDate.setFullYear(year);
     tempDate.setMinutes(tempDate.getMinutes()+330);
-    await fetch("https://elclasico-test.herokuapp.com/bookings/", {
+    await fetch("https://wild-pink-woodpecker-vest.cyclic.app/bookings/", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

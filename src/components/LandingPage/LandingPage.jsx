@@ -20,7 +20,7 @@ function LandingPage(props) {
   // this useEffect will run once
   // similar to componentDidMount()
   useEffect(() => {
-    fetch("https://elclasico-test.herokuapp.com/venues")
+    fetch("https://wild-pink-woodpecker-vest.cyclic.app/venues")
       .then((res) => res.json())
       .then(
         (result) => {
