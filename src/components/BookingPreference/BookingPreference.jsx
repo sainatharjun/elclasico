@@ -206,6 +206,9 @@ function BookingPreference(props) {
     tempDate.setDate(date);
     tempDate.setMonth(month - 1);
     tempDate.setFullYear(year);
+    tempDate.setMinutes(0);
+    tempDate.setHours(0);
+    tempDate.setSeconds(0);
     tempDate.setMinutes(tempDate.getMinutes()+330);
     await fetch("https://wild-pink-woodpecker-vest.cyclic.app/bookings/", {
       method: 'POST',
