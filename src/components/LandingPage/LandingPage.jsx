@@ -57,7 +57,7 @@ function LandingPage(props) {
       <div id="LandingPage" className="">
         <div className="greeting">
           <h2>
-            Hey <span className="userName">{name.split(' ',1)[0] + "!"}</span>
+            Hey <span className="userName">{name&&name.includes(' ')?name.split(' ',1)[0]:name + "!"}</span>
           </h2>
           <h6 className="subTitleText">What are you in mood for today?</h6>
         </div>
