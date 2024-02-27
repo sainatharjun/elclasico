@@ -26,7 +26,7 @@ function BookingPreference(props) {
   const year = today.getFullYear();
   const momentToday = moment(today);
   const [buttonDisplay, setButtonDisplay] = useState('none');
-  let nowHour= today.getHours();
+  let nowHour = today.getHours();
 
   const mlist = [
     "Jan",
@@ -91,7 +91,7 @@ function BookingPreference(props) {
       if (currentIndex == lastIndex + 1 || currentIndex == firsIndex - 1 || document.getElementsByClassName('picked').length == 0) {
         let tempSlot = timeSlot;
         $(e.target.closest('.slotBtn')).addClass('picked');
-        setPrice(price+parseInt(e.target.closest('.slotBtn').dataset.price));
+        setPrice(price + parseInt(e.target.closest('.slotBtn').dataset.price));
         tempSlot.push({
           "startTime": e.target.closest('.slotBtn').dataset.value,
           "weekDayCode": day,
@@ -104,7 +104,7 @@ function BookingPreference(props) {
     else {
       if (currentIndex == lastIndex || currentIndex == firsIndex || document.getElementsByClassName('picked').length == 1) {
         $(e.target).closest('.slotBtn').removeClass('picked')
-        setPrice(price-parseInt(e.target.closest('.slotBtn').dataset.price));
+        setPrice(price - parseInt(e.target.closest('.slotBtn').dataset.price));
         let temp = timeSlot;
         temp.forEach((t, i) => {
           if (t.startTime == e.target.closest('.slotBtn').dataset.value) {
@@ -167,8 +167,8 @@ function BookingPreference(props) {
       lastDay = 31;
     else
       lastDay = 30;
-    if(nowMonth==2){
-      lastDay = 28;
+    if (nowMonth == 2) {
+      lastDay = 29;
     }
     let flag = 0;
     while (i > 0) {
@@ -203,7 +203,7 @@ function BookingPreference(props) {
     return time.join(''); // return adjusted time or original string
   }
   const confirmBooking = async function () {
-    $('.confirm-btn').attr('disabled',true)
+    $('.confirm-btn').attr('disabled', true)
     let user = JSON.parse(sessionStorage['user']);
     let tempDate = today;
     tempDate.setDate(date);
@@ -212,7 +212,7 @@ function BookingPreference(props) {
     tempDate.setMinutes(0);
     tempDate.setHours(0);
     tempDate.setSeconds(0);
-    tempDate.setMinutes(tempDate.getMinutes()+330);
+    tempDate.setMinutes(tempDate.getMinutes() + 330);
     await fetch("https://wild-pink-woodpecker-vest.cyclic.app/bookings/", {
       method: 'POST',
       headers: {
@@ -234,7 +234,7 @@ function BookingPreference(props) {
         }
       )
     }).then(res => res.json()).then(res => {
-    $('.confirm-btn').attr('disabled',false)
+      $('.confirm-btn').attr('disabled', false)
       sessionStorage['bookingData'] = JSON.stringify({ 'locality': locality, 'date': date, 'month': mlist[month - 1], 'slot': timeSlot })
       if (res.is_success) {
         navigate("/success");
@@ -303,8 +303,8 @@ function BookingPreference(props) {
         <div id="timeSlots">
           {
             slots[count].slots.map(s => (
-              day==today.getDay()+1?parseInt(s.id)>nowHour?<div className='slotBtn' onClick={(event) => handleTimeslot(event)} data-index={s.id} data-value={s.time} data-price={s.cost}>{tConvert(s.time)} - {tConvert(((parseInt(s.time) + 1 < 10 ? '0' : '') + (parseInt(s.time) + 1) + ":00") == "24:00" ? "00:00" : ((parseInt(s.time) + 1 < 10 ? '0' : '') + (parseInt(s.time) + 1) + ":00"))}</div>:null:
-              <div className='slotBtn' onClick={(event) => handleTimeslot(event)} data-index={s.id} data-value={s.time} data-price={s.cost}>{tConvert(s.time)} - {tConvert(((parseInt(s.time) + 1 < 10 ? '0' : '') + (parseInt(s.time) + 1) + ":00") == "24:00" ? "00:00" : ((parseInt(s.time) + 1 < 10 ? '0' : '') + (parseInt(s.time) + 1) + ":00"))}</div>
+              day == today.getDay() + 1 ? parseInt(s.id) > nowHour ? <div className='slotBtn' onClick={(event) => handleTimeslot(event)} data-index={s.id} data-value={s.time} data-price={s.cost}>{tConvert(s.time)} - {tConvert(((parseInt(s.time) + 1 < 10 ? '0' : '') + (parseInt(s.time) + 1) + ":00") == "24:00" ? "00:00" : ((parseInt(s.time) + 1 < 10 ? '0' : '') + (parseInt(s.time) + 1) + ":00"))}</div> : null :
+                <div className='slotBtn' onClick={(event) => handleTimeslot(event)} data-index={s.id} data-value={s.time} data-price={s.cost}>{tConvert(s.time)} - {tConvert(((parseInt(s.time) + 1 < 10 ? '0' : '') + (parseInt(s.time) + 1) + ":00") == "24:00" ? "00:00" : ((parseInt(s.time) + 1 < 10 ? '0' : '') + (parseInt(s.time) + 1) + ":00"))}</div>
             ))
           }
         </div>
@@ -343,7 +343,7 @@ function BookingPreference(props) {
             </div>
             <div className='col col_right'>
               <p className='fadedText'>
-                Rs.{price-discount}
+                Rs.{price - discount}
               </p>
             </div>
           </div>
@@ -360,8 +360,8 @@ function BookingPreference(props) {
           className="confirmBooking"
         >
           <p className="cbl">
-          &#8377;{price-discount} | 
-            <p style={{display:'inline'}} id="slotPreview">
+            &#8377;{price - discount} |
+            <p style={{ display: 'inline' }} id="slotPreview">
               {/* {timeSlot.length>0 ? timeSlot[0].startTime : ''} -{" "}
               {timeSlot.length>0 ? timeSlot[timeSlot.length - 1].startTime != "" ? parseInt(timeSlot[timeSlot.length - 1].startTime) + 1 + ":00" : "" : ''} */}
             </p>
