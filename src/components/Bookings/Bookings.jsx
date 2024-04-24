@@ -67,10 +67,10 @@ function Bookings() {
             }
                 <div className='modalContainer'>
                     <div className='modal'>
-                        <b>Are you sure you want to cancel this slot?</b>
-                        <br />
-                        Slot Details
-                        <br />
+                        <div className='cancellationHeading'>
+                            <b>Booking Cancellation</b>
+                            <span className='closeModalSpan'>X</span>
+                        </div>
                         <table style={{width:'100%'}}>
                             <tr>
                                 <td>
@@ -99,10 +99,8 @@ function Bookings() {
                         </table>
                         <br />
                         <p style={{fontWeight:700}}>Are you sure you want to cancel this booking?</p>
-                        <div style={{float:'right',marginTop:'15px'}}>
-                        <button className='btn btn-primary' onClick={()=>handleCloseModal()}>No</button>
-                        &nbsp;
-                            <button className='btn btn-danger' onClick={()=>cancelBooking(c_bookingID)}>Yes, Cancel</button>
+                        <div style={{width:'100%',textAlign:'center',marginTop:'15px'}}>
+                            <button className='btn btn-primary' onClick={()=>cancelBooking(c_bookingID)}>Yes, Cancel</button>
                         </div>
                     </div>
                 </div>

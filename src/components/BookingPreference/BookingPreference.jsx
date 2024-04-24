@@ -25,9 +25,17 @@ function BookingPreference(props) {
   const [price, setPrice] = useState(0);
   const year = today.getFullYear();
   const momentToday = moment(today);
-  const [buttonDisplay, setButtonDisplay] = useState('none');
   let nowHour = today.getHours();
 
+  const dlist = [
+    "Sun",
+    "Mon",
+    "Tue",
+    "Wed",
+    "Thurs",
+    "Fri",
+    "Sat"
+  ]
   const mlist = [
     "Jan",
     "Feb",
@@ -119,12 +127,6 @@ function BookingPreference(props) {
     ${timeSlot.length > 0 ? timeSlot[timeSlot.length - 1].startTime != "" ? tConvert(((parseInt(timeSlot[timeSlot.length - 1].startTime) + 1 < 10 ? '0' : '') + (parseInt(timeSlot[timeSlot.length - 1].startTime) + 1) + ":00") == "24:00" ? "00:00" : ((parseInt(timeSlot[timeSlot.length - 1].startTime) + 1 < 10 ? '0' : '') + (parseInt(timeSlot[timeSlot.length - 1].startTime) + 1) + ":00")) : '' : ''}
             
     `)
-    if (document.getElementsByClassName('picked').length > 0) {
-      setButtonDisplay('flex')
-    }
-    else {
-      setButtonDisplay('none')
-    }
   }
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -293,8 +295,11 @@ function BookingPreference(props) {
                 data-count={i}
                 className="dates"
               >
-                {d.date}
                 <p>{mlist[d.month - 1]}</p>
+                {d.date}
+                <p style={{fontWeight:300}}>
+                {dlist[d.day - 1]}
+                </p>
               </div>
             ))}
           </div>
@@ -348,28 +353,23 @@ function BookingPreference(props) {
             </div>
           </div>
         </div>
+        <p style={{color:'red'}}>
+          *The above cost needs to be paid at the venue
+        </p>
+        <div className="confirmButtonContainer">
         <button
           style={{
-            backgroundColor: "crimson",
-            display: buttonDisplay,
-            cursor: "pointer",
+            width:'max-content'
           }}
           onClick={() => {
             handleOpenModal();
           }}
-          className="confirmBooking"
+          className="btn btn-primary"
         >
-          <p className="cbl">
-            &#8377;{price - discount} |
-            <p style={{ display: 'inline' }} id="slotPreview">
-              {/* {timeSlot.length>0 ? timeSlot[0].startTime : ''} -{" "}
-              {timeSlot.length>0 ? timeSlot[timeSlot.length - 1].startTime != "" ? parseInt(timeSlot[timeSlot.length - 1].startTime) + 1 + ":00" : "" : ''} */}
-            </p>
-          </p>
-          <h5 className="cbr">
-            Confirm Booking &gt;
-          </h5>
+          
+            Confirm Booking
         </button>
+        </div>
         <div className="modalContainer">
           <div className="modal">
             <b>Are you sure you wan't to book this slot?</b>

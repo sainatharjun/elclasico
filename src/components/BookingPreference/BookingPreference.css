@@ -153,6 +153,22 @@
 .priceDiv{
     margin-bottom: 40px;
 }
+.cancellationHeading{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+}
+.cancellationHeading b{
+    text-align: left!important;
+}
+.closeModalSpan{
+    cursor: pointer;
+    color: rgb(180, 3, 3);
+    font-weight: 700;
+    width:5%;
+}
 .modalContainer,.cancelModalContainer{
     position: fixed;
     height: 120%;
@@ -174,6 +190,8 @@
     margin:0 auto;
     padding: 30px 50px;
     top: 17%;
+    border-radius: 8px;
+    box-shadow: 1px 1px 8px grey;
 }
 #registerModal .modal{
     top: 2%;
@@ -191,4 +209,24 @@
     text-align: center;
     width: 100%;
     display: block;
+}
+button.btn-primary{
+background-color: #2D328F;
+border-radius: 0;
+}
+button.btn-danger{
+    border-radius: 0%;
+}
+.confirmButtonContainer{
+    width: 100%;
+    justify-content: flex-end;
+    display: flex;
+    position: fixed;
+    background: white;
+    left: 0;
+    bottom: 0;
+    padding: 16px;
+}
+.confirmButtonContainer button{
+    border-radius: 24px;
 }
