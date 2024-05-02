@@ -144,8 +144,9 @@ function Login() {
         <div id="Login" className="container">
             <lottie-player id="lottiePlayer" src="images/Loader.json" background="transparent" speed="1" style={{ width: '300px', height: '100%', display: 'none' }} loop autoplay></lottie-player>
             <img className='logo' src="images/el_classico_logo.png" alt="Logo" />
-            <p className='welcome'>Welcome to <span className='elclasico'>Elclasico</span> </p>
-            <p className='welcomeText' style={{ textAlign: 'center' }}>Sign in to make a booking</p>
+            <p className='welcome'>Welcome to <span className='elclasico'>Elclasico!</span> </p>
+            <p className='welcome-sub-text'>Feel the Real Turf <br/> & <br/> Get your game face on </p>
+            <p className='welcomeText' style={{ textAlign: 'center' }}>Sign in to spice up your football game</p>
             <div style={{ 'display': 'flex', 'flexDirection': 'row', 'width': '200px', 'justifyContent': 'space-between', 'margin': '0 auto' }}>
                 <button className="btn btn-outline-primary" onClick={() => { handleOpenModal('loginModal') }} style={{ margin: '0 auto' }}>
                     Login

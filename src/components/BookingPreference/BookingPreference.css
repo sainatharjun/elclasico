@@ -212,10 +212,6 @@
 }
 button.btn-primary{
 background-color: #2D328F;
-border-radius: 0;
-}
-button.btn-danger{
-    border-radius: 0%;
 }
 .confirmButtonContainer{
     width: 100%;

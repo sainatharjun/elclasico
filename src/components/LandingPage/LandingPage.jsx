@@ -59,7 +59,7 @@ function LandingPage(props) {
           <h2>
             Hey <span className="userName">{name&&name.includes(' ')?name.split(' ',1)[0]:name + "!"}</span>
           </h2>
-          <h6 className="subTitleText">What are you in mood for today?</h6>
+          <h6 className="subTitleText">Let's kickoff</h6>
         </div>
         <div className="banner">
           <OwlCarousel
@@ -89,21 +89,20 @@ function LandingPage(props) {
             </div>
           </OwlCarousel>
         </div>
-        <div className="greeting">
-          <h4>Venues</h4>
-        </div>
         <div className="turfCardContainer">
           {venues.map((venue) => (
             <Link
               className="TurfCard"
-              to="/bookingPreference"
+              to="/venue"
               state={{
                 locality: venue.name,
                 venue_id: venue._id,
+                venue:venue,
                 discount: 0,
               }}
             >
               <TurfCard
+                venue_images={venue.imageUrls}
                 venue_id={venue._id}
                 location={venue.name}
                 startTime={venue.startTime}

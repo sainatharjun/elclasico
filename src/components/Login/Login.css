@@ -30,8 +30,22 @@ html, body, #root {
     line-height: 29px;
     color: #000000;
     align-self: center;
-    margin-bottom: 100px;
+    margin-bottom: 40px;
 }
+
+.welcome-sub-text{
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 29px;
+    color: #000000;
+    align-self: center;
+    margin-bottom: 100px;   
+    text-align: center;
+
+}
+ 
 .elclasico{
     color:#2D328F;
 }

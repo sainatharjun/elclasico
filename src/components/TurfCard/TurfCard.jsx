@@ -1,4 +1,5 @@
 import "./TurfCard.css";
+import OwlCarousel from "react-owl-carousel";
 
 function TurfCard(props) {
   const getBookNowCtaText = (discount, price) => {
@@ -9,28 +10,28 @@ function TurfCard(props) {
   return (
     <div>
       <div className="turfCardContent">
-        <img
+        {/* <img
           className="turfCardLogo"
           src="images\el_classico_logo.png"
           alt=""
-        />
+        /> */}
         <div className="rhs">
           <h5>{props.location}</h5>
-          <div className="price">
-            <img src="images\rupee.svg" alt="rupee" />
-            <p>
-              {props.price}
-            </p>
-          </div>
+          <div className="clockContainer">
+          <img src="images\clock 1.svg" alt="clock" />
+          <p>
+            {props.startTime} {props.startTime !== '24x7' && '-'} {props.endTime}
+          </p>
+        </div>
         </div>
       </div>
       <div className="container2">
-        <div className="clockContainer">
-          <img src="images\clock 1.svg" alt="clock" />
-          <p>
-            {props.startTime} - {props.endTime}
-          </p>
-        </div>
+        <div className="price">
+            <p style={{margin:0}}>
+            <img src="images\rupee.svg" style={{marginBottom:'4px', marginRight:'4px'}} alt="rupee" />
+              {props.price}
+            </p>
+          </div>
         <div className="sportContainer">
           <img
             className="activityImageStyle"

@@ -12,37 +12,9 @@ function Success(props) {
     const slot=location.state.slot;
     return  (
         <div className='stripScreen'>
-            <img src="images/confirm-icon.svg" className='confirmIcon' alt="" />
-            <h4 className='BPHeader success-header'>Booking Success</h4>
+            <img src="images/wrong-icon.svg" className='confirmIcon' alt="" />
+            <h4 className='BPHeader success-header'>Something Went Wrong</h4>
             <div className='modal' style={{top:'5%',backgroundColor:'inherit', width:'100%',margin:0}}>
-            <span style={{fontSize:'22px',display:'block',margin:'auto',textAlign:'center'}}>Slot Details</span>
-                <br />
-                <table style={{width:'100%'}}>
-                    <tr>
-                        <td>
-                            Venue
-                        </td>
-                        <td>
-                            {locality}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Date
-                        </td>
-                        <td>
-                            {date} {month}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Slot
-                        </td>
-                        <td>
-                            {slot} - {parseInt(slot)<10?'0':''}{parseInt(slot)+1}:00
-                        </td>
-                    </tr>
-                </table>
             </div>
             <div className='finalLinks'>
                 <Link to="/viewBookings">
