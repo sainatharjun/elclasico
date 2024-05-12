@@ -13,7 +13,7 @@ function Bookings() {
     let [c_bookingID,setC_BookingId]=useState();
     let cancelBooking=async()=>{
         console.log(c_bookingID)
-        await fetch("https://wild-pink-woodpecker-vest.cyclic.app/bookings/cancel",{
+        await fetch("https://elcasico-backend.onrender.com/bookings/cancel",{
             method:'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -44,7 +44,7 @@ function Bookings() {
     var [data,setData]=useState();
     let [loaded,setIsLoaded]=useState(false)
     useEffect(()=>{
-        fetch("https://wild-pink-woodpecker-vest.cyclic.app/bookings/userBookings?id="+user._id)
+        fetch("https://elcasico-backend.onrender.com/bookings/userBookings?id="+user._id)
         .then(res => res.json())
         .then(
           (result) => {

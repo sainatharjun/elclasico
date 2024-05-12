@@ -35,7 +35,7 @@ function Login() {
             alert('Passwords do not match.');
             return;
         }
-        await fetch('https://wild-pink-woodpecker-vest.cyclic.app/auth/register', {
+        await fetch('https://elcasico-backend.onrender.com/auth/register', {
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -64,7 +64,7 @@ function Login() {
             alert('Password should be atleast 6 characters long');
             return;
         }
-        await fetch('https://wild-pink-woodpecker-vest.cyclic.app/auth/login', {
+        await fetch('https://elcasico-backend.onrender.com/auth/login', {
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -101,7 +101,7 @@ function Login() {
         $('#signInDiv').hide()
 
         userObj = jwt_decode(res.credential);
-        await fetch('https://wild-pink-woodpecker-vest.cyclic.app/auth/login', {
+        await fetch('https://elcasico-backend.onrender.com/auth/login', {
             headers: {
                 'Content-Type': 'application/json'
             },

@@ -137,7 +137,7 @@ function BookingPreference(props) {
   // similar to componentDidMount
 
   useEffect(() => {
-    fetch("https://wild-pink-woodpecker-vest.cyclic.app/slots?venueId=" + venue_id + "&weekDayCode=*")
+    fetch("https://elcasico-backend.onrender.com/slots?venueId=" + venue_id + "&weekDayCode=*")
       .then(res => res.json())
       .then(
         (result) => {
@@ -215,7 +215,7 @@ function BookingPreference(props) {
     tempDate.setHours(0);
     tempDate.setSeconds(0);
     tempDate.setMinutes(tempDate.getMinutes() + 330);
-    await fetch("https://wild-pink-woodpecker-vest.cyclic.app/bookings/", {
+    await fetch("https://elcasico-backend.onrender.com/bookings/", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
