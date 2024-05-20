@@ -19,8 +19,8 @@
 }
 .flexVertDiv{
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: flex-start;
+    align-items: flex-start;
     flex-direction: column;
 }
 .flexHorDiv{
@@ -33,4 +33,10 @@
     width:40px;
     height: 40px;
     border-radius: 50%;
+}
+.amenitiesLi{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
 }

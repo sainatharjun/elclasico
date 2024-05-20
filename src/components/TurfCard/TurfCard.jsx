@@ -9,6 +9,7 @@ function TurfCard(props) {
 
   return (
     <div>
+      <img className="turfImage" src="https://elclasicoturf.in/images_be/DSC_0365.jpg" height={200} width={'100%'}/>
       <div className="turfCardContent">
         {/* <img
           className="turfCardLogo"

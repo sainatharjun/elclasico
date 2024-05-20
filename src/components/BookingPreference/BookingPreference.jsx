@@ -247,6 +247,9 @@ function BookingPreference(props) {
         // $('#failureLink').trigger('click');
       }
     })
+    .catch(err=>{
+      navigate("/failure");
+    });
   }
 
   if (error) {

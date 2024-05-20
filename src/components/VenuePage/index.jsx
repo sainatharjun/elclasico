@@ -6,7 +6,6 @@ import GoogleReview from "./GoogleReview";
 function VenuePage(props) {
   const location = useLocation();
   const venue = location.state.venue;
-  console.log(venue)
   return (
     <div className="venuePageContent">
             <Carousel showThumbs={false}>
@@ -25,7 +24,7 @@ function VenuePage(props) {
             </Carousel>
             <div className="mainContainer">
                 <h3>{venue?.name}</h3>
-                <a href=""className="viewInMap">View in map</a>
+                <a href={venue?.mapUrl} className="viewInMap">View in map <img src="images/linkOpen.svg"/></a>
                 <div style={{ marginTop:'36px'}}>
                     <h5>Available Activities</h5>
                     <div className="flexHorDiv" style={{justifyContent:'flex-start', gap:'24px'}}>
@@ -49,23 +48,24 @@ function VenuePage(props) {
                     <h5>Ameneties at the venue</h5>
                     <div className="flexHorDiv" style={{justifyContent:'flex-start', alignItems:'flex-start', gap:'96px'}}>
                         <div className="flexVertDiv">
-                            <div>Parking</div>
-                            <div>Parking</div>
-                            <div>Parking</div>
+                        <div className="amenitiesLi"><img src={"images/amenities-tick.svg"}/>Parking</div>
+                        <div className="amenitiesLi"><img src={"images/amenities-tick.svg"}/>Changing Room</div>
+                        <div className="amenitiesLi"><img src={"images/amenities-tick.svg"}/>Washroom</div>
+                        <div className="amenitiesLi"><img src={"images/amenities-tick.svg"}/>Drinking Water</div>
                         </div>
-                        <div className="flexVertDiv">
+                        {/* <div className="flexVertDiv">
                         <div>Parking</div>
                         <div>Parking</div>
                         <div>Parking</div>
                         <div>Parking</div>
                         
-                        </div>
+                        </div> */}
                     </div>
                 </div>
-                <div style={{ marginTop:'36px'}}>
+                {/* <div style={{ marginTop:'36px'}}>
                     <h5>Google Reviews</h5>
                     <GoogleReview name={"sainath arjun"} review={"lorem ipsum lorem ipsum lorem ipsum lorem ipsum"} rating={5}/>
-                </div>
+                </div> */}
                 <Link
                     to="/bookingPreference"
                     state={{

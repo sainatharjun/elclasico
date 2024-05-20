@@ -61,7 +61,7 @@ function LandingPage(props) {
           </h2>
           <h6 className="subTitleText">Let's kickoff</h6>
         </div>
-        <div className="banner">
+        {/* <div className="banner">
           <OwlCarousel
             className="owl-theme"
             items={1}
@@ -88,7 +88,7 @@ function LandingPage(props) {
               <img src="images/carousel4.jpg" alt="" />
             </div>
           </OwlCarousel>
-        </div>
+        </div> */}
         <div className="turfCardContainer">
           {venues.map((venue) => (
             <Link
