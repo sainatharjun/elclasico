@@ -25,7 +25,7 @@ function VenuePage(props) {
             <div className="mainContainer">
              <div>
              <h3>{venue?.name}</h3>
-                <a href={venue?.mapUrl} className="viewInMap">View in map <img src="images/linkOpen.svg"/></a>
+                <a href={venue?.mapLink} className="viewInMap">View in map <img src="images/linkOpen.svg"/></a>
              </div>
                 <div className="activityContainer">
                     <h5>Available Activities</h5>
