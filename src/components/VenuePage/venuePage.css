@@ -12,10 +12,16 @@
 }
 .mainContainer{
     padding: 16px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+    gap: 20px;
 }
 .viewInMap{
     color: rgb(12, 206, 12);
     text-decoration: none;
+    font-weight: 500;
 }
 .flexVertDiv{
     display: flex;
@@ -23,11 +29,39 @@
     align-items: flex-start;
     flex-direction: column;
 }
+
 .flexHorDiv{
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: row;
+}
+.activityContainer{
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+}
+.activity{
+    display: flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction: column;
+}
+.pillConatiner{
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.pillsWrapConatiner{
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 .reviewImg img{
     width:40px;
@@ -38,5 +72,21 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    background: #f5f5f5;
+    padding: 8px 10px;
+    border-radius: 24px;
+    font-size: 14px;
+    font-weight: 500;
+    border: 1px solid rgb(183, 183, 183);
     gap: 5px;
+}
+
+.bookFloatingCta{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    left: 0;
+    padding: 18px 0;
+    border-radius: 0;
+    border: none;
 }

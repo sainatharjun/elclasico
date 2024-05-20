@@ -23,19 +23,21 @@ function VenuePage(props) {
                 </div>
             </Carousel>
             <div className="mainContainer">
-                <h3>{venue?.name}</h3>
+             <div>
+             <h3>{venue?.name}</h3>
                 <a href={venue?.mapUrl} className="viewInMap">View in map <img src="images/linkOpen.svg"/></a>
-                <div style={{ marginTop:'36px'}}>
+             </div>
+                <div className="activityContainer">
                     <h5>Available Activities</h5>
                     <div className="flexHorDiv" style={{justifyContent:'flex-start', gap:'24px'}}>
-                        <div className="flexVertDiv">
+                        <div className="activity">
                         <img
                             src="images\football.png"
                             alt="football"
                         />
                         Football
                         </div>
-                        <div className="flexVertDiv">
+                        <div className="activity">
                         <img
                             src="images\cricket.png"
                             alt="cricket"
@@ -44,15 +46,14 @@ function VenuePage(props) {
                         </div>
                     </div>
                 </div>
-                <div style={{ marginTop:'36px'}}>
+                <div className="pillConatiner">
                     <h5>Ameneties at the venue</h5>
-                    <div className="flexHorDiv" style={{justifyContent:'flex-start', alignItems:'flex-start', gap:'96px'}}>
-                        <div className="flexVertDiv">
-                        <div className="amenitiesLi"><img src={"images/amenities-tick.svg"}/>Parking</div>
-                        <div className="amenitiesLi"><img src={"images/amenities-tick.svg"}/>Changing Room</div>
-                        <div className="amenitiesLi"><img src={"images/amenities-tick.svg"}/>Washroom</div>
-                        <div className="amenitiesLi"><img src={"images/amenities-tick.svg"}/>Drinking Water</div>
-                        </div>
+                    <div className="pillsWrapConatiner">
+                   
+                        <div className="amenitiesLi"><img src={"images/amenities-tick.svg"} width={18}/>Parking</div>
+                        <div className="amenitiesLi"><img src={"images/amenities-tick.svg"} width={18}/>Changing Room</div>
+                        <div className="amenitiesLi"><img src={"images/amenities-tick.svg"} width={18}/>Washroom</div>
+                        <div className="amenitiesLi"><img src={"images/amenities-tick.svg"} width={18}/>Drinking Water</div>
                         {/* <div className="flexVertDiv">
                         <div>Parking</div>
                         <div>Parking</div>
@@ -74,7 +75,7 @@ function VenuePage(props) {
                         discount: 0,
                     }}
                     >
-                <button style={{marginTop:'12px'}} className="btn btn-primary">Book a slot</button>
+                <button className="btn btn-primary bookFloatingCta">Book a slot</button>
                 </Link>
             </div>
 

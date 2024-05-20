@@ -214,15 +214,16 @@ button.btn-primary{
 background-color: #2D328F;
 }
 .confirmButtonContainer{
-    width: 100%;
+    width: max-content;
     justify-content: flex-end;
     display: flex;
     position: fixed;
-    background: white;
-    left: 0;
-    bottom: 0;
-    padding: 16px;
+    right: 16px;
+    bottom: 16px;
 }
 .confirmButtonContainer button{
     border-radius: 24px;
+}
+.stripScreen{
+    overflow-x: hidden;
 }
