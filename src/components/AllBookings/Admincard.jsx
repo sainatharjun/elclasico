@@ -14,6 +14,8 @@ function Admincard(props) {
         }
         return time.join(''); // return adjusted time or original string
     }
+    // add start time to the slot booking date
+    props.dateObj.setHours(parseInt(props.startTime))
     return (
         <div className="adminCard">
             <div className="row">
