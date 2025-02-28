@@ -170,7 +170,7 @@ function BookingPreference(props) {
     else
       lastDay = 30;
     if (nowMonth == 2) {
-      lastDay = 29;
+      lastDay = 28;
     }
     let flag = 0;
     while (i > 0) {
